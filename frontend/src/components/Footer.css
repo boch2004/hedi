@@ -1,0 +1,97 @@
+
+
+.user-profile h4 {
+    color: aliceblue;
+}
+
+.user-profile p {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+
+.text-end {
+    color: aliceblue;
+}
+
+.user-profile li {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+
+img {
+    width: 166px;
+}
+
+.footer-bottom {
+    background: #ffff;
+    border-radius: 30px 30px 0px  0px ;
+}
+
+ul {
+    list-style: none;
+    /* إزالة النقاط */
+    padding: 0;
+    /* إزالة المسافة الافتراضية من اليسار */
+    margin-bottom: 20px;
+}
+
+i{
+    width: 40px !important; 
+    height: 40px !important; 
+}
+.footer-social {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+.footer-social i {
+    border: 10px solid #000;
+    border-radius: 50%;
+    background: #000;
+    position: relative;
+}
+.fab {
+    position: relative;
+    right: 8;
+}
+.align-center{
+    display: flex;
+    justify-content:space-between;
+    padding-top: 25px;
+    margin: 0 50px;
+}
+.footer-social i {
+    font-size: 20px;
+}
+
+
+.user-profile input{
+    margin: 20px 0 ;
+
+}
+
+.iconc{
+    display: flex;
+}
+.user-profile .icon{
+    border-radius: 50%;
+    background: #000;
+    width: 35px;
+    height: 35px;
+    padding: 7px 4px;
+}
+i{
+    font-size: 20px;
+    margin-left: 4px;
+}
+.fa-facebook-f {
+    padding-left: 3px;
+}
+.fa-pinterest-p {
+    padding-left: 3px;
+}
+.fa-linkedin-in {
+    padding-left: 2px;
+}

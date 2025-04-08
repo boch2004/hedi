@@ -1,0 +1,89 @@
+.small-navbar {
+  padding: 5px 10px; /* Réduit l'espace autour de la navbar */
+  height: 50px; /* Réduit la hauteur totale */
+  overflow: hidden;
+}
+
+.small-navbar .navbar-brand img {
+  height: 80px; /* Réduit la taille du logo */
+  width: auto; /* Garde le ratio */
+}
+
+
+.image-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 0; /* Supprime l'espace entre la navbar et l'image */
+}
+
+.header-image {
+  width: 100%;
+  height: calc(100vh - 50px) !important;
+  object-fit: cover; /* Recadre bien l'image */
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.header-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.image-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.image-text p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.connecter,
+.learn-more {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.connecter {
+  background-color: #ff6600;
+  color: white;
+}
+
+
+.connecter:hover {
+  background-color: #ff6600;
+}
+
+.learn-more:hover {
+  background-color: #3e8e41;
+}
+.small-navbar a {
+  margin: 20px;
+}

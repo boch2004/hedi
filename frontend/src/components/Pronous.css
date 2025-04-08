@@ -1,0 +1,94 @@
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-image: url('/pronous.jpg'); /* Chemin de l'image */
+  background-size: cover; /* Permet de couvrir toute la zone avec l'image */
+  background-position: center; /* Centre l'image */
+  background-attachment: fixed; /* L'image reste fixe lors du défilement de la page */
+  height: 100vh; /* Ajuste la hauteur à la taille de la fenêtre */
+}
+
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  gap: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+.about-tabs {
+  margin-top: 20px;
+}
+
+.about-tabs button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #ff6600;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.about-tabs button:hover {
+  background-color: #e05500;
+}
+
+.about-tabs button.active {
+  background-color: #333;
+}
+
+.mission {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #444;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #ff6600;
+}
+
+.contact-info {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #444;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #ff6600;
+}
+
+.contact-info p {
+  margin: 5px 0;
+}

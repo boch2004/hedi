@@ -1,0 +1,103 @@
+/* Centrer la page de connexion */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("/imglogin.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+/* Conteneur du formulaire */
+.login-wrapper {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 350px;
+}
+
+/* Style du titre */
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff6600;
+  margin-bottom: 20px;
+}
+
+/* Champs de saisie */
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Bouton de connexion */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background-color: #e65c00;
+}
+
+/* Checkbox */
+.login-checkbox {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.login-checkbox input {
+  margin-right: 5px;
+}
+
+/* Lien vers l'inscription */
+.login-register {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-register a {
+  color: #ff6600;
+  text-decoration: none;
+}
+
+.login-register a:hover {
+  text-decoration: underline;
+}
+.eye-icon {
+  position: absolute;
+  right: 39%;
+  /* يمكنك تغيير هذه القيمة لتحريك العين أفقيًا */
+  top: 53%;
+  transform: translateY(-50%);
+  /* لتوسيط الأيقونة عموديًا */
+  cursor: pointer;
+  transition: 0.3s;
+}
+.password-container{
+  height: 100px;
+}
+
+
+
+
+
+
+
+
+
+
