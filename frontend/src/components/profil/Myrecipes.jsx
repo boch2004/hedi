@@ -29,6 +29,7 @@ function Myrecipes({ ping, setping }) {
 
   return (
     <>
+    <div style={{display:"flex",marginTop:200}}>
       {Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
         <div key={el._id} className="animal-card">
           <img style={{ width: 250 }} src={el.img} alt={el.titel} />
@@ -62,6 +63,7 @@ function Myrecipes({ ping, setping }) {
           </button>
         </div>
       ))}
+    </div>
     </>
 
   );

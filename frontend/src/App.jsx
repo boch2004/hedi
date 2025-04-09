@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getusers, userCurrent } from "./JS/userSlice/userSlice";
 import { getanimal } from "./JS/userSlice/animalSlice";
 import { getpost } from "./JS/userSlice/postSlice";
+import All from "./components/profil/All";
 
 
 
@@ -53,6 +54,7 @@ function App() {
             <Route path="info" element={<Info />} />
             <Route path="" element={<ProfileSection />} />
             <Route path="Les_utlisateurs" element={<Les_utlisateurs ping={ping} setping={setping}   />} />
+            <Route path="All_Animal" element={<All ping={ping} setping={setping}   />} />            
             <Route path="Myrecipes" element={<Myrecipes ping={ping} setping={setping} />} />
           </Route>
         </Route>
