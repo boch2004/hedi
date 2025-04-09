@@ -1,12 +1,12 @@
-import Modal from "../Modal";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteanimal } from "../../JS/userSlice/animalSlice";
+import Modifier from "../Modifier";
 
 function Myrecipes({ ping, setping }) {
-  const animaldeleteanimals = useSelector((state) => state.animaldeleteanimal.animaldeleteanimallist);
   const user = useSelector((state) => state.user.user);
+    const Animals = useSelector((state) => state.animal?.animalList || []);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -28,47 +28,42 @@ function Myrecipes({ ping, setping }) {
   };
 
   return (
-    <div className="recipes-container">
-      <table className="recipes-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Ingredients</th>
-            <th>Directions</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {animaldeleteanimals
-            ?.filter((el) => el.idchef === user?._id)
-            .map((el) => (
-              <tr key={el?._id}>
-                <td>{el?.titel}</td>
-                <td>
-                  <img src={el?.img} alt={el?.titel} className="recipe-image" />
-                </td>
-                <td>{el?.description}</td>
-                <td>{el?.Ingredients}</td>
-                <td>{el?.Directions}</td>
-                <td>
-                  <Modal animaldeleteanimal={el} ping={ping} setping={setping} />
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(el?._id)}
-                    className="delete-button"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
+        <div key={el._id} className="animal-card">
+          <img style={{ width: 250 }} src={el.img} alt={el.titel} />
+          <div className="animal-sec">
+            <h4 className="animal-title" style={{ textAlign: "center",color:"black" }}>{el.titel}</h4>
+
+            <p className="animal-desc">
+              <strong className="h1name">Description:&nbsp;</strong>{el.description}
+            </p>
+            <p className="animal-desc">
+              <strong className="h1name">Name:&nbsp;</strong>{el.name}
+            </p>
+            <p className="animal-desc">
+              <strong className="h1name">Race:&nbsp;</strong>{el.race}
+            </p>
+            <p className="animal-desc">
+              <strong className="h1name">Gender:&nbsp;</strong>{el.gender}
+            </p>
+            <p className="animal-desc">
+              <strong className="h1name">Location:&nbsp;</strong>{el.location}
+            </p>
+          </div>
+
+          <Modifier animal={el} ping={ping} setping={setping} />
+
+          <button
+            onClick={() => handleDelete(el?._id)}
+            className="delete-button"
+          >
+            X
+          </button>
+        </div>
+      ))}
+    </>
+
   );
 }
 

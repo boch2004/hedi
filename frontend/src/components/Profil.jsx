@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import "./UserProfile.css";
 import "./Footer.css";
 import { deleteuser, edituser, logout } from "../JS/userSlice/userSlice";
+import { NavLink } from "react-router-dom";
+
 
 const Profil = () => {
   const user = useSelector((state) => state.user.user);
@@ -60,48 +62,64 @@ const Profil = () => {
       <div className="sidebar">
         <h4 className="sidebar-title">.</h4>
         <ul className="nav-list">
-          <li className="nav-item">
-            <Link to="info" >
-              <a className="nav-link active">
-                <FaBell className="icon" /> User info
-              </a>
-            </Link>
-          </li>
-          {user?.category === "admin" &&
-           <li className="nav-item">
-              <Link to={"Les_utlisateurs"}>
-              <a className="nav-link">
-                  <FaHeart className="icon" /> Les_utlisateurs
-              </a>
-            </Link>
-          </li>}
+  <li className="nav-item">
+    <NavLink
+      to="info"
+      className={({ isActive }) =>
+        isActive ? "nav-link active" : "nav-link"
+      }
+    >
+      <FaBell className="icon" /> <h6>User info</h6>
+    </NavLink>
+  </li>
 
-          <li className="nav-item">
-            <Link to={"Myrecipes"}>
-              <a className="nav-link">
-                <FaStar className="icon" /> My recipes
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={""}>
-              <a className="nav-link">
-                <FaCog className="icon" /> Settings
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item logout">
-            <button
-              className="logout-button"
-              onClick={() => {
-                dispatch(logout());
-                navigate("/login");
-              }}
-            >
-              <FaSignOutAlt className="icon" /> Log out
-            </button>
-          </li>
-        </ul>
+  {user?.category === "admin" && (
+    <li className="nav-item">
+      <NavLink
+        to="Les_utlisateurs"
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+        <FaHeart className="icon" /> <h6>Les utilisateurs</h6>
+      </NavLink>
+    </li>
+  )}
+
+  <li className="nav-item">
+    <NavLink
+      to="Myrecipes"
+      className={({ isActive }) =>
+        isActive ? "nav-link active" : "nav-link"
+      }
+    >
+      <FaStar className="icon" /> <h6>Myrecipes</h6>
+    </NavLink>
+  </li>
+
+  <li className="nav-item">
+    <NavLink
+      to=""
+      className={({ isActive }) =>
+        isActive ? "nav-link active" : "nav-link"
+      }
+    >
+      <FaCog className="icon" /> <h6>Settings</h6>
+    </NavLink>
+  </li>
+
+  <li className="nav-item logout">
+    <button
+      className="logout-button"
+      onClick={() => {
+        dispatch(logout());
+        navigate("/login");
+      }}
+    >
+      <FaSignOutAlt className="icon" /> Log out
+    </button>
+  </li>
+</ul>
       </div>
       <div className="profile-section">
         <Outlet />

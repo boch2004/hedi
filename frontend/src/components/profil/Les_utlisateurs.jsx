@@ -26,7 +26,7 @@ function Les_utlisateurs({ ping, setping }) {
 
             </li>
             <div className="card-user" >
-                {user?.map((el) => <Carduser key={el.id} user={el} />)}
+            {user?.filter(u => u.category !== "admin").map((el) => (<Carduser key={el.id} user={el} />))}
             </div>
         </>
     )
