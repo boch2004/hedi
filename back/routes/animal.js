@@ -1,18 +1,39 @@
 const express = require("express");
 const Animal = require("../models/Animal");
 const animalRouter = express.Router();
+const multer = require("multer");
+const path = require("path");
+
+// إعداد مكان تخزين الصور
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // تأكد أن هذا المجلد موجود
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
+
 
 // ✅ إضافة حيوان جديد
-animalRouter.post("/add", async (req, res) => {
+animalRouter.post("/add", upload.single("img"), async (req, res) => {
   try {
-    let newAnimal = new Animal(req.body);
-    let result = await newAnimal.save();
-    return res.status(201).send({ animal: result, msg: "Animal is added" });
+    const animalData = {
+      ...req.body,
+      img: req.file?.filename, // اسم الصورة فقط
+    };
+
+    const newAnimal = new Animal(animalData);
+    const result = await newAnimal.save();
+    res.status(201).send({ animal: result, msg: "Animal is added" });
   } catch (error) {
     console.error(error);
-    return res.status(500).send({ error: "Error adding animal" });
+    res.status(500).send({ error: "Error adding animal" });
   }
 });
+
 
 // ✅ جلب كل الحيوانات
 animalRouter.get("/", async (req, res) => {

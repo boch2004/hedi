@@ -26,9 +26,13 @@ function Login() {
     const result = await dispatch(userlogin(login));
   
     if (result.payload && !result.error) {
-      setTimeout(() => {
+      const userRole = result.payload.user?.category;
+
+      if (userRole === "admin") {
+        navigate("/profil");
+      } else {
         navigate("/");
-      }, 100);
+      }
     } else {
       setErrorMessage(result.payload?.msg || "Login failed! Please try again.");
     }

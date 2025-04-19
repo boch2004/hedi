@@ -60,10 +60,10 @@ const Profil = () => {
     <div className="user-profile">
       {/* Sidebar */}
       <div className="sidebar">
-        <h4 className="sidebar-title">.</h4>
         <ul className="nav-list">
   <li className="nav-item">
     <NavLink
+      style={{ marginTop: 60 }} 
       to="info"
       className={({ isActive }) =>
         isActive ? "nav-link active" : "nav-link"
@@ -88,26 +88,39 @@ const Profil = () => {
     {user?.category === "admin" && (
     <li className="nav-item">
       <NavLink
-        to="All_Animal"
+                to="Les_animaux"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
         }
       >
-        <FaHeart className="icon" /> <h6>All Animal</h6>
+                <FaHeart className="icon" /> <h6>Les animaux</h6>
       </NavLink>
     </li>
   )}
-
+   {user?.category === "admin" && (
+    <li className="nav-item">
+      <NavLink
+                to="Histoiress"
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+                <FaHeart className="icon" /> <h6>Histoires</h6>
+      </NavLink>
+    </li>
+  )}
+          {user?.category === "user" && (
   <li className="nav-item">
     <NavLink
-      to="Myrecipes"
+                to="Mes_animaux"
       className={({ isActive }) =>
         isActive ? "nav-link active" : "nav-link"
       }
     >
-      <FaStar className="icon" /> <h6>Myrecipes</h6>
+      <FaStar className="icon" /> <h6>Mes_animaux</h6>
     </NavLink>
   </li>
+          )}
 
   <li className="nav-item">
     <NavLink

@@ -1,0 +1,109 @@
+.ingredients-container {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .animal-cardd {
+    background: #fff;
+    max-width: 880px;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .animal-imgg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .animal-detailss {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .animal-titlee {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #3a3a3a;
+  }
+  
+  .animal-descc {
+    font-size: 16px;
+    margin: 6px 0;
+    color: #555;
+  }
+  
+  .favorite-icon {
+    font-size: 24px;
+    margin-top: 15px;
+    cursor: pointer;
+  }
+  
+  .heart {
+    color: #999;
+    transition: color 0.3s;
+  }
+  .heart.filled {
+    color: red;
+  }
+  
+  .adopt-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #6a4caf;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .adopt-btn:hover {
+    background-color: #543aa0;
+  }
+  
+  .badges-group {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #cdb1f5;
+    font-size: 16px;
+  }
+  
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .not-found {
+    text-align: center;
+    padding: 50px;
+    font-size: 20px;
+    color: #999;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .animal-titlee {
+      font-size: 20px;
+    }
+  
+    .animal-descc {
+      font-size: 14px;
+    }
+  
+    .adopt-btn {
+      width: 100%;
+    }
+  
+    .badges-group {
+      align-items: center;
+    }
+  }
+  

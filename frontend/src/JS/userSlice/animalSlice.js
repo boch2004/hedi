@@ -14,14 +14,19 @@ export const getanimal = createAsyncThunk("animal/get", async (_, { rejectWithVa
 });
 
 // ✅ إضافة حيوان جديد
-export const addanimal = createAsyncThunk("animal/add", async (newanimal, { rejectWithValue }) => {
+export const addanimal = createAsyncThunk("animal/add", async (formData, { rejectWithValue }) => {
     try {
-        let response = await axios.post(`${API_URL}/add`, newanimal);
-        return response.data.animal;
+      const response = await axios.post(`${API_URL}/add`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data.animal;
     } catch (error) {
-        return rejectWithValue(error.response?.data || error.message || "Error adding animal");
+      return rejectWithValue(error.response?.data || error.message || "Error adding animal");
     }
-});
+  });
+  
 
 // ✅ حذف حيوان
 export const deleteanimal = createAsyncThunk("animal/delete", async (id, { rejectWithValue }) => {

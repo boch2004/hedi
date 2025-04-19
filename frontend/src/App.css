@@ -34,7 +34,7 @@
 
 /* login start */
 body {
-  background: #ffffff !important;
+  background: #efeff1 !important;
 }
 
 .wrapper {
@@ -82,8 +82,10 @@ body {
 }
 /* card */
 .animal-card{
-  width: 250px;
-  height: 389px;
+  overflow: hidden;
+  border-radius: 5px;
+  width: 224px;
+  height: 416px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -110,8 +112,14 @@ margin-top: 100px;
   flex-direction: row;
 }
 .animal-sec{
-  margin-left: 10px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: end;
+  padding-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  width: 224px;
+  height: 180px;
+  background: #ffffff;
 }
 .error-message{
   color: red;
@@ -119,4 +127,26 @@ margin-top: 100px;
 .modalinput input{
   margin: 0px !important;
   height: 30px;
+}
+.Group  {
+  display: flex;
+  flex-wrap: wrap;
+  width: 880px;
+  background: white;
+
+}
+.Group div {
+width: 350px;
+height: 120px;
+background: #ffff;
+border-radius: 10px;
+margin: 20px 10px;
+display: flex;
+flex-direction: column;
+padding-left: 10px;
+padding-top: 10px;
+box-shadow: -1px -1px 16px 7px rgba(0,0,0,0.19);
+-webkit-box-shadow: -1px -1px 16px 7px rgba(0,0,0,0.19);
+-moz-box-shadow: -1px -1px 16px 7px rgba(0,0,0,0.19);
+
 }

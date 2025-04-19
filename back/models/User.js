@@ -22,15 +22,14 @@ const UserSchema = new schema({
     type: String,
     default: "user",
   },
-    phone: {
-    type: String,
-    required: true,
-  },  location: {
-    type: String,
-    required: true,
-  },  postalCode: {
-    type: String,
-    required: true,
+  phone: {
+    type: String, 
+  },
+  location: {
+    type: String, 
+  },
+  postalCode: {
+    type: String, 
   },
   img: String,
 });

@@ -16,7 +16,7 @@ function Histoires({ ping, setping}) {
 
   return (
     <div>
-      {user && (
+      {user?.category === "user" && (
       <Modal ping={ping} setping={setping} />
       )}
       <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around",}}>

@@ -6,12 +6,6 @@ import Carduser from "../Carduser";
 function Les_utlisateurs({ ping, setping }) {
     const user = useSelector((state) => state.user.userlist);
     const dispatch = useDispatch();
-
-
-    
-
-
-
     return (
         <>
             <h1 style={{textAlign:"center"}}> Les utlisateurs</h1>
