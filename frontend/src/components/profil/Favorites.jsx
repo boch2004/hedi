@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletefavoris } from "../../JS/userSlice/favorisslice";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { deletefavoris, getfavoris } from "../../JS/userSlice/favorisslice";
 
-function Favorites({ ping, setping, count, setcount }) {
+function Favorites({ ping, setping }) {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getfavoris());
+    }, [dispatch, ping]);
     const favoris = useSelector((state) => state.favoris.favorislist);
     const user = useSelector((state) => state.user.user);
-    const dispatch = useDispatch();
-
-    // حساب عدد الوصفات المفضلة
-    useEffect(() => {
-        if (user) {
-            const userFavorites = favoris.filter((el) => el.iduser === user._id).length;
-            setcount(userFavorites);
-        }
-    }, [favoris, user]);
 
     const handleClick = (e, el) => {
         if (!user) {
@@ -34,27 +29,28 @@ function Favorites({ ping, setping, count, setcount }) {
         e.stopPropagation(); // Prevent the link from being followed
         dispatch(deletefavoris(elId));
         setping(!ping);
-        setcount(count - 1);
     };
 
     return (
-        <div className="favorites-container ">
+        <div className="favorites-container">
             {favoris
                 ?.filter((el) => el.iduser === user?._id)
                 .map((el) => (
-                    <div className="favorite-item" key={el._id}
-                style={{
-                    transition: "all 0.5s ease-in-out",
-                    transform: "translateY(0px)",
-                    }}
-                    onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-12px)";
-                    e.currentTarget.style.boxShadow = "0px 10px 30px rgba(0, 0, 0, 0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0px)";
-                    e.currentTarget.style.boxShadow = "none";
-                    }}
+                    <div
+                        className="favorite-item"
+                        key={el._id}
+                        style={{
+                            transition: "all 0.5s ease-in-out",
+                            transform: "translateY(0px)",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-12px)";
+                            e.currentTarget.style.boxShadow = "0px 10px 30px rgba(0, 0, 0, 0.3)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0px)";
+                            e.currentTarget.style.boxShadow = "none";
+                        }}
                     >
                         <Link
                             to={user ? `/product/${el.idurl}` : "#"}
@@ -66,7 +62,7 @@ function Favorites({ ping, setping, count, setcount }) {
                                 alt={el?.nameproduct}
                             />
                         </Link>
-                        <h5 className="favorite-title">{el?.nameproduct}</h5>
+                        <h5 className="favorite-title">{el?.nameuser}</h5>
                         <div className="favorite-buttons">
                             <button
                                 onClick={(e) => handleDelete(el?._id, e)}
@@ -75,7 +71,7 @@ function Favorites({ ping, setping, count, setcount }) {
                                 🤍
                             </button>
                             <Link
-                                to={user ? `/product/${el.idurl}` : "#"}
+                                to={user ? `/animaux/${el.idurl}` : "#"}
                                 onClick={(e) => handleClick(e, el)}
                             >
                                 <button className="show-more-button">Show more</button>

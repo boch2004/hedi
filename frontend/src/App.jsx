@@ -23,6 +23,7 @@ import { getpost } from "./JS/userSlice/postSlice";
 import Mes_animaux from "./components/profil/Mes_animaux";
 import Les_animaux from "./components/profil/Les_animaux";
 import Ingredients from "./components/Ingredients";
+import Favorites from "./components/profil/favorites";
 
 
 
@@ -62,7 +63,7 @@ function App() {
             <Route path="Les_animaux" element={<Les_animaux ping={ping} setping={setping}   />} />            
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
             <Route path="Histoiress" element={<Histoires ping={ping} setping={setping} />} />
-            <Route path="favorites" element={<Favorites ping={ping} setping={setping} count={count} setcount={setcount}   />} />
+            <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
           </Route>
         </Route>
       </Routes>

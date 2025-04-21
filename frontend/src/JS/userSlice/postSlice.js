@@ -7,7 +7,6 @@ const API_URL = "http://localhost:5000/post"; // تحديد الـ API URL
 export const getpost = createAsyncThunk("post/get", async (_, { rejectWithValue }) => {
     try {
         let response = await axios.get(`${API_URL}/`);
-        console.log("Response:", response.data);
         return response.data.posts; // تأكد أن الـ API يعيد كائن يحتوي على `posts`
     } catch (error) {
         return rejectWithValue(error.response?.data || "Error fetching posts");

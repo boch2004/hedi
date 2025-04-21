@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteanimal } from "../JS/userSlice/animalSlice";
 import { Link } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { addfavoris, deletefavoris } from "../JS/userSlice/favorisslice";
+import { toast } from "react-toastify";
 
-function Cardanimal({ animal }) {
+function Cardanimal({ animal, ping, setping }) {
   const user = useSelector((state) => state.user.user);
+  const favoris = useSelector((state) => state.favoris.favoris);
   const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
-
-  const toggleLike = () => setLiked(!liked);
 
   const handleDelete = (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
@@ -16,11 +17,58 @@ function Cardanimal({ animal }) {
     }
   };
 
-  if (!animal) return null;
+  if (!animal) return <p>animal not found</p>;
+
+  const [newfavoris, setnewfavoris] = useState({
+    iduser: user?._id,
+    nameuser: user?.name + " " + user?.lastname,
+    nameanimal: "",
+    imganimal: "",
+    description: "",
+    Ingredients: "",
+    Directions: "",
+    chef: "",
+    idurl: animal?._id || "",
+  });
+
+  useEffect(() => {
+    if (animal && user) {
+      setnewfavoris({
+        iduser: user._id,
+        nameuser: `${user.name} ${user.lastname}`,
+        nameanimal: animal.titel,
+        imganimal: animal.img,
+        chef: "",
+        idurl: animal?._id || "",
+      });
+
+      // Check if already in favoris
+      const isLiked = favoris?.some(
+        (fav) => fav.idurl === animal._id && fav.iduser === user._id
+      );
+      setLiked(isLiked);
+    }
+  }, [animal, user, favoris]);
+
+  const handleLikeClick = () => {
+    if (liked) {
+      const favToDelete = favoris.find(
+        (f) => f.idurl === animal._id && f.iduser === user._id
+      );
+      if (favToDelete) {
+        dispatch(deletefavoris(favToDelete._id));
+        toast.info("❌ Recipe removed from favorites");
+      }
+    } else {
+      dispatch(addfavoris(newfavoris));
+      toast.success("✅ Recipe added to favorites!");
+    }
+    setLiked(!liked);
+    setping(!ping);
+  };
 
   return (
-    
-    <div style={{ position: "relative",borderRadius:8, }}>
+    <div style={{ position: "relative", borderRadius: 8 }}>
       {user?.category === "admin" && (
         <button
           style={{
@@ -39,37 +87,43 @@ function Cardanimal({ animal }) {
         </button>
       )}
       <Link to={`/animaux/${animal._id}`}>
-      <div className="animal-card">
-        <div>
-        <svg
-      onClick={toggleLike}
-      style={{ position: "absolute", right: 0, margin: "13px 25px", cursor: "pointer" }}
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M11.4295 3.29074L12.024 3.73295L12.6201 3.29292C13.8781 2.36439 15.4265 1.91606 16.9859 2.02881C18.5435 2.14143 20.0096 2.80633 21.1204 3.90373C21.7231 4.51528 22.1994 5.23968 22.5219 6.03551C22.8451 6.83312 23.0075 7.68673 22.9997 8.5473C22.992 9.40787 22.8143 10.2584 22.4767 11.0501C22.1392 11.8417 21.6486 12.5589 21.033 13.1603L21.0274 13.1658L21.0218 13.1714L13.8181 20.4352C13.8175 20.4358 13.817 20.4363 13.8165 20.4368C13.3285 20.9234 12.6674 21.1966 11.9782 21.1966C11.289 21.1966 10.628 20.9234 10.14 20.4368C10.1394 20.4363 10.1389 20.4358 10.1384 20.4352L2.93462 13.1714L2.93464 13.1714L2.92921 13.166C1.75712 12.0021 1.06956 10.4373 1.005 8.78674C0.940433 7.13618 1.50366 5.52246 2.58126 4.27054C3.65886 3.01862 5.17079 2.2215 6.81257 2.0397C8.45436 1.8579 10.1041 2.30492 11.4295 3.29074Z"
-        fill={liked ? "#EF89B8" : "#FDFBFF"}
-        stroke="#EF89B8"
-        strokeWidth="2"
-      />
-    </svg>
-        <img
-          style={{ width: 224,height:236 }}
-          src={`http://localhost:5000/uploads/${animal.img}`}
-          alt={animal?.titel}
-        />
-        </div>
-        <div className="animal-sec">
-
-
-          <div className="animal-desc">
-            <span className="h1name">name:&nbsp;</span>
-            {animal?.name}
+        <div className="animal-card">
+          <div>
+            <svg
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleLikeClick();
+              }}
+              style={{
+                position: "absolute",
+                right: 0,
+                margin: "13px 25px",
+                cursor: "pointer",
+              }}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.4295 3.29074L12.024 3.73295L12.6201 3.29292C13.8781 2.36439 15.4265 1.91606 16.9859 2.02881C18.5435 2.14143 20.0096 2.80633 21.1204 3.90373C21.7231 4.51528 22.1994 5.23968 22.5219 6.03551C22.8451 6.83312 23.0075 7.68673 22.9997 8.5473C22.992 9.40787 22.8143 10.2584 22.4767 11.0501C22.1392 11.8417 21.6486 12.5589 21.033 13.1603L13.8181 20.4352C13.3285 20.9234 12.6674 21.1966 11.9782 21.1966C11.289 21.1966 10.628 20.9234 10.14 20.4368L2.93462 13.1714C1.75712 12.0021 1.06956 10.4373 1.005 8.78674C0.940433 7.13618 1.50366 5.52246 2.58126 4.27054C3.65886 3.01862 5.17079 2.2215 6.81257 2.0397C8.45436 1.8579 10.1041 2.30492 11.4295 3.29074Z"
+                fill={liked ? "#EF89B8" : "#FDFBFF"}
+                stroke="#EF89B8"
+                strokeWidth="2"
+              />
+            </svg>
+            <img
+              style={{ width: 224, height: 236 }}
+              src={`http://localhost:5000/uploads/${animal.img}`}
+              alt={animal?.titel}
+            />
           </div>
+          <div className="animal-sec">
+            <div className="animal-desc">
+              <span className="h1name">name:&nbsp;</span>
+              </div>
           <div style={{width:202,height:26 ,background:"#fbf7ff",marginBottom:5,borderRadius:8}}><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12.1078 9.89352C11.8672 9.20719 11.3064 8.85938 10.765 8.52305C10.2938 8.2302 9.84896 7.95348 9.55802 7.45664C8.75603 6.08043 8.31552 5.25 7.00165 5.25C5.68779 5.25 5.24591 6.0807 4.44201 7.45637C4.1508 7.9543 3.70373 8.23156 3.23205 8.52496C2.69064 8.86156 2.13092 9.20855 1.88947 9.89352C1.7955 10.1405 1.74822 10.4028 1.75002 10.6671C1.75002 11.7811 2.63732 12.6875 3.62033 12.6875C4.60334 12.6875 5.89833 12.1918 7.00439 12.1918C8.11044 12.1918 9.38739 12.6875 10.3827 12.6875C11.378 12.6875 12.25 11.7811 12.25 10.6671C12.2508 10.4027 12.2026 10.1404 12.1078 9.89352Z" fill="#533778"></path>
 <path d="M1.96875 7.875C2.81444 7.875 3.5 6.99356 3.5 5.90625C3.5 4.81894 2.81444 3.9375 1.96875 3.9375C1.12306 3.9375 0.4375 4.81894 0.4375 5.90625C0.4375 6.99356 1.12306 7.875 1.96875 7.875Z" fill="#533778"></path>

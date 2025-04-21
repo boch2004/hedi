@@ -17,6 +17,7 @@ app.use("/user",require("./routes/user"))
 app.use("/animals", require("./routes/animal"));
 app.use("/post", require("./routes/post"));
 app.use("/uploads", express.static("uploads"));
+app.use("/favoris",require("./routes/favoris"))
 
 
 

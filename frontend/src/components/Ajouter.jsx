@@ -132,7 +132,7 @@
                 Add age<span style={{ color: "red" }}>*</span>
             </h5>
             <input
-                type="text"
+                type="number"
                 onChange={(e) =>
                 setnewanimal({ ...newanimal, age: e.target.value })
                 }
