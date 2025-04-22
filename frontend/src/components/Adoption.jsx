@@ -72,7 +72,7 @@ export default function NumScrollDemo() {
     // ...
   
     const Animals = useSelector((state) => state.animal?.animalList || []);
-    const visibleAnimals = showAll ? Animals : Animals.slice(0, 6); // ✅ جديد
+    const visibleAnimals = showAll ? Animals : Animals.slice(0, 4); // ✅ جديد
 
   return (
     <>
@@ -95,7 +95,7 @@ export default function NumScrollDemo() {
   )}
 
   {/* ✅ الزرّ يظهر إذا فما أكثر من 6 حيوانات */}
-  {Animals.length > 6 && (
+  {Animals.length > 4 && (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
       <Button
         label={showAll ? "Show Less" : "Show More"}

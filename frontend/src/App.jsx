@@ -24,6 +24,7 @@ import Mes_animaux from "./components/profil/Mes_animaux";
 import Les_animaux from "./components/profil/Les_animaux";
 import Ingredients from "./components/Ingredients";
 import Favorites from "./components/profil/favorites";
+import { getfavoris } from "./JS/userSlice/favorisslice";
 
 
 
@@ -36,6 +37,7 @@ function App() {
     dispatch(getanimal());
     dispatch(getusers());
     dispatch(getpost());
+    dispatch(getfavoris());
   }, [ping])
 
 

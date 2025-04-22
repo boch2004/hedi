@@ -9,6 +9,7 @@ function Favorites({ ping, setping }) {
     useEffect(() => {
         dispatch(getfavoris());
     }, [dispatch, ping]);
+
     const favoris = useSelector((state) => state.favoris.favorislist);
     const user = useSelector((state) => state.user.user);
 
@@ -33,52 +34,56 @@ function Favorites({ ping, setping }) {
 
     return (
         <div className="favorites-container">
-            {favoris
-                ?.filter((el) => el.iduser === user?._id)
-                .map((el) => (
-                    <div
-                        className="favorite-item"
-                        key={el._id}
-                        style={{
-                            transition: "all 0.5s ease-in-out",
-                            transform: "translateY(0px)",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-12px)";
-                            e.currentTarget.style.boxShadow = "0px 10px 30px rgba(0, 0, 0, 0.3)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "translateY(0px)";
-                            e.currentTarget.style.boxShadow = "none";
-                        }}
-                    >
-                        <Link
-                            to={user ? `/product/${el.idurl}` : "#"}
-                            onClick={(e) => handleClick(e, el)}
+            {favoris && favoris.filter((el) => el.iduser === user?._id).length === 0 ? (
+                <p className="empty-favorites-message">Your favorites list is empty.</p>
+            ) : (
+                favoris
+                    ?.filter((el) => el.iduser === user?._id)
+                    .map((el) => (
+                        <div
+                            className="favorite-item"
+                            key={el._id}
+                            style={{
+                                transition: "all 0.5s ease-in-out",
+                                transform: "translateY(0px)",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-12px)";
+                                e.currentTarget.style.boxShadow = "0px 10px 30px rgba(0, 0, 0, 0.3)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0px)";
+                                e.currentTarget.style.boxShadow = "none";
+                            }}
                         >
-                            <img
-                                src={el?.imgproduct}
-                                className="favorite-image"
-                                alt={el?.nameproduct}
-                            />
-                        </Link>
-                        <h5 className="favorite-title">{el?.nameuser}</h5>
-                        <div className="favorite-buttons">
-                            <button
-                                onClick={(e) => handleDelete(el?._id, e)}
-                                className="delete-button"
-                            >
-                                🤍
-                            </button>
                             <Link
-                                to={user ? `/animaux/${el.idurl}` : "#"}
+                                to={user ? `/product/${el.idurl}` : "#"}
                                 onClick={(e) => handleClick(e, el)}
                             >
-                                <button className="show-more-button">Show more</button>
+                                <img
+                                    src={el?.imgproduct}
+                                    className="favorite-image"
+                                    alt={el?.nameproduct}
+                                />
                             </Link>
+                            <h5 className="favorite-title">{el?.nameuser}</h5>
+                            <div className="favorite-buttons">
+                                <button
+                                    onClick={(e) => handleDelete(el?._id, e)}
+                                    className="delete-button"
+                                >
+                                    🤍
+                                </button>
+                                <Link
+                                    to={user ? `/animaux/${el.idurl}` : "#"}
+                                    onClick={(e) => handleClick(e, el)}
+                                >
+                                    <button className="show-more-button">Show more</button>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+            )}
         </div>
     );
 }
