@@ -165,7 +165,6 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
           <button className="btn-delete" onClick={handleDelete}>
             Delete Account
           </button>
-          {user?.category === "admin" && <div>Haja taban ken lel admin</div>}
         </div>
       </div>
     );

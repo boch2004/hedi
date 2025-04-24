@@ -15,7 +15,7 @@ function Les_utlisateurs({ ping, setping }) {
                 <span style={{ width: 200 }}>Email</span>
                 <span style={{ width: 100 }}>Téléphone</span>
                 <span style={{ width: 200 }}>Localisation</span>
-                <span style={{ width: 50 }}>delete</span>
+                <span style={{ width: 50 }}>Delete</span>
 
 
             </li>

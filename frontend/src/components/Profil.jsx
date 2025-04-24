@@ -133,6 +133,19 @@ const Profil = () => {
       </NavLink>
     </li>
   )}
+  {user?.category === "user" && (
+    <li className="nav-item">
+      <NavLink
+                to="adoptions"
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+                <FaHeart className="icon" /> <h6>adoptions</h6>
+      </NavLink>
+    </li>
+  )}
+
 
   <li className="nav-item">
     <NavLink

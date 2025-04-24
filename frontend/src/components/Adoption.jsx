@@ -40,7 +40,7 @@ export default function NumScrollDemo() {
   const productTemplate = (product) => (
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
       <div style={{ display: "flex", justifyContent: "center" }} className="mb-3">
-        <img src={`http://localhost:5000/uploads/${product.img}`} alt={product.name} className="w-6 shadow-2" />
+        <img style={{width:220,height:200}} src={`http://localhost:5000/uploads/${product.img}`} alt={product.name} className=" shadow-2" />
       </div>
       <div>
         <h4 className="mb-1">{product.name}</h4>
@@ -72,7 +72,7 @@ export default function NumScrollDemo() {
     // ...
   
     const Animals = useSelector((state) => state.animal?.animalList || []);
-    const visibleAnimals = showAll ? Animals : Animals.slice(0, 4); // ✅ جديد
+    const visibleAnimals = showAll ? Animals : Animals.slice(0, 0); // ✅ جديد
 
   return (
     <>
@@ -86,22 +86,21 @@ export default function NumScrollDemo() {
           responsiveOptions={responsiveOptions}
           itemTemplate={productTemplate}
         />
+        <Button
+          label={showAll ? "Show Less" : "Show More"}
+          onClick={() => setShowAll(!showAll)}
+          className="p-button-rounded p-button-outlined"
+        />
       </div>
       <div className="card-animal">
-  {visibleAnimals.length > 0 ? (
-    visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
-  ) : (
-    <p>No animals available</p>
-  )}
+      {visibleAnimals.length > 0 ? (
+  visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
+) : null}
+
 
   {/* ✅ الزرّ يظهر إذا فما أكثر من 6 حيوانات */}
-  {Animals.length > 4 && (
+  {Animals.length > 0 && (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <Button
-        label={showAll ? "Show Less" : "Show More"}
-        onClick={() => setShowAll(!showAll)}
-        className="p-button-rounded p-button-outlined"
-      />
     </div>
   )}
 </div>

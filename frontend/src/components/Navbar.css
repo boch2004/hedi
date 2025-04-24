@@ -2,6 +2,10 @@
   padding: 5px 10px; /* Réduit l'espace autour de la navbar */
   height: 50px; /* Réduit la hauteur totale */
   overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 .small-navbar .navbar-brand img {

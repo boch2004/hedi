@@ -1,41 +1,64 @@
 import React, { useState } from 'react';
-import './Modal.css'; // باش نضيف الـ style في ملف CSS خارجي
+import './Modal.css';
+import { useDispatch, useSelector } from "react-redux";
+import { submitAdoptionRequest } from "../JS/userSlice/adoptionSlice";
 
-function AdoptModal() {
+function AdoptModal({ animalId,user_id }) {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, error, success } = useSelector((state) => state.adoption);
+  const user = useSelector((state) => state.user?.user); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // هنا تعمل API request أو تبعث البيانات
-    alert("تم إرسال الطلب بنجاح!");
-    setShowModal(false);
+    const form = e.target;
+    const formData = {
+      name: form[0].value,
+      email: form[1].value,
+      reason: form[2].value,
+      idanimal: animalId,
+      iduser: user_id,
+    };
+
+    dispatch(submitAdoptionRequest(formData)).then((res) => {
+      if (!res.error) {
+        alert("Demande envoyée avec succès !");
+        setShowModal(false);
+      } else {
+        alert("Erreur : " + res.payload);
+      }
+    });
   };
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Adopt Now</button>
+      <button className='adopt-btn' onClick={() => setShowModal(true)}>Adopter maintenant</button>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>طلب تبنّي</h2>
+            <h2>Demande d'adoption</h2>
             <form onSubmit={handleSubmit}>
               <label>
-                الاسم:
+                Nom :
                 <input type="text" required />
               </label>
               <label>
-                البريد الإلكتروني:
+                Email :
                 <input type="email" required />
               </label>
               <label>
-                لماذا تريد التبني؟
+                Pourquoi souhaitez-vous adopter ?
                 <textarea required />
               </label>
               <div className="modal-actions">
-                <button type="submit">إرسال</button>
-                <button type="button" onClick={() => setShowModal(false)}>إلغاء</button>
+                <button type="submit" disabled={loading}>
+                  {loading ? "Envoi en cours..." : "Envoyer"}
+                </button>
+                <button type="button" onClick={() => setShowModal(false)}>Annuler</button>
               </div>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              {success && <p style={{ color: "green" }}>Votre demande a été envoyée !</p>}
             </form>
           </div>
         </div>

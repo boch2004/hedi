@@ -51,18 +51,9 @@ function Ingredients() {
             </p>
           ))}
 
-          <div className="favorite-icon" onClick={toggleFavorite}>
-            {isFavorite ? (
-              <AiFillHeart className="heart filled" />
-            ) : (
-              <AiOutlineHeart className="heart" />
-            )}
-          </div>
+           {/* onClick={handleAdopt} */}
+          <AdoptModal animalId={animal._id} user_id={animal.idanimal}/>
 
-          <button className="adopt-btn" onClick={handleAdopt}>
-            Adopt Now
-          </button>
-          <AdoptModal/>
         </div>
       </div>
 {/* sec2 */}

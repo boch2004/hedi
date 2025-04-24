@@ -1,19 +1,22 @@
 const express = require("express");
 const Post = require("../models/Post");
 const postRouter = express.Router();
+// Router specifique pour le post qui un modele composée par le titre , contenu ...
 
-// Add post
+// Route POST / add pour ajouter un post 
 postRouter.post("/add", async (req, res) => {
+  //Pour ajouter un post
   try {
     let newPost = new Post(req.body);
     let result = await newPost.save();
+  
     res.send({ posts: result, msg: "Post is added" });
   } catch (error) {
     console.log(error);
   }
 });
 
-// Get all posts
+// Route Get  pour faire un appel à un post qui au BD
 postRouter.get("/", async (req, res) => {
   try {
     let result = await Post.find();
@@ -23,7 +26,7 @@ postRouter.get("/", async (req, res) => {
   }
 });
 
-// Get one post
+//Get/: id > Get d'une post ( une seule poste)
 postRouter.get("/:id", async (req, res) => {
   try {
     let result = await Post.findById(req.params.id);
@@ -33,7 +36,7 @@ postRouter.get("/:id", async (req, res) => {
   }
 });
 
-// Delete post
+//Delete /: id > Route pour supprimer une poste ( ppst + ID vont etre supprimer )
 postRouter.delete("/:id", async (req, res) => {
   try {
     let result = await Post.findByIdAndDelete(req.params.id);
@@ -43,7 +46,7 @@ postRouter.delete("/:id", async (req, res) => {
   }
 });
 
-// Edit post
+//Put /: id > Pour modifier le post 
 postRouter.put("/:id", async (req, res) => {
   try {
     let result = await Post.findByIdAndUpdate(

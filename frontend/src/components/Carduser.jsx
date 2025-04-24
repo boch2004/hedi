@@ -23,7 +23,7 @@ function Carduser({ user }) {
           <span style={{ width: 200 }}>{user.location}</span>
           <span style={{ width: 50 }}>
             <button
-              style={{ background: "red", color: "white" }}
+              style={{ background: "red", color: "white",border:"none",borderRadius:5 }}
               onClick={() => handleDelete(user._id)} // ✅ Corrected here
             >
               X

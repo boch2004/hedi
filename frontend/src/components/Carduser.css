@@ -34,6 +34,7 @@ h2 {
 .user-header {
     font-weight: bold;
     background-color: #f4f4f4;
+    color: #194b87 !important;
 }
 
 .user-item:last-child {

@@ -25,6 +25,7 @@ import Les_animaux from "./components/profil/Les_animaux";
 import Ingredients from "./components/Ingredients";
 import Favorites from "./components/profil/favorites";
 import { getfavoris } from "./JS/userSlice/favorisslice";
+import AdoptionDashboard from "./components/profil/AdoptionDashboard";
 
 
 
@@ -66,6 +67,8 @@ function App() {
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
             <Route path="Histoiress" element={<Histoires ping={ping} setping={setping} />} />
             <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
+            <Route path="adoptions" element={<AdoptionDashboard />} />
+
           </Route>
         </Route>
       </Routes>
