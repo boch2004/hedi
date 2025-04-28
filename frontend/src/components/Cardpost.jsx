@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletepost } from "../JS/userSlice/postSlice";
+import "./Cardpost.css";
+
 
 function Cardpost({ product }) {
   const dispatch = useDispatch();
@@ -12,23 +14,16 @@ function Cardpost({ product }) {
     }
   };
   return (
-    <div>
-      <div
-        style={{
-          border: "1px solid #000000",
-          display: "flex",
-          width: 170,
-          paddingTop: 10,
-        }}
-      >
-        {user?.category === "admin" && (
+    <>
+<div className="nakcha">
+{user?.category === "admin" && (
           <button
             style={{
               border: "none",
               background: "none",
-              position: "relative",
-              left: 140,
-              top: -54,
+              position: "absolute",
+              right: 5,
+              top:5,
               color: "red",
             }}
             onClick={() => handleDelete(product._id)} // ✅ Corrected here
@@ -36,14 +31,16 @@ function Cardpost({ product }) {
             X
           </button>
         )}
+  <div className="">
+    <h4 style={{margin:25,color:"black"}}>{product?.title}</h4>
+    <p style={{margin:20,color:"#6c757d"}}>{product?.content}</p>
+    <p style={{position:"absolute",bottom:0,right:10,color:"#6c757d"}}>{product?.Crea}</p>
+  </div>
+</div>
 
-        <div className="food-sec">
-          <h4 className="food-title">{product?.title}</h4>
-          <p className="food-desc">{product?.content}</p>
-          <p className="food-desc">{product?.Crea}</p>
-        </div>
-      </div>
-    </div>
+    </>
+
+
   );
 }
 

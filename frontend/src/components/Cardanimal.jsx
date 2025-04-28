@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { addfavoris, deletefavoris } from "../JS/userSlice/favorisslice";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import "./Cardanimal.css";
+
 
 function Cardanimal({ animal, ping, setping }) {
   const user = useSelector((state) => state.user.user);
@@ -13,9 +15,19 @@ function Cardanimal({ animal, ping, setping }) {
   const [liked, setLiked] = useState(false);
 
   const handleDelete = (id) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-      dispatch(deleteanimal(id));
-    }
+    Swal.fire({
+      title: "Êtes-vous sûr ?",
+      text: "Cette action est irréversible !",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Oui, supprimer !"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteanimal(id));
+      }
+    });
   };
 
   if (!animal) return <p>animal not found</p>;
@@ -26,8 +38,6 @@ function Cardanimal({ animal, ping, setping }) {
     nameanimal: "",
     imganimal: "",
     description: "",
-    Ingredients: "",
-    Directions: "",
     chef: "",
     idurl: animal?._id || "",
   });
@@ -67,6 +77,7 @@ function Cardanimal({ animal, ping, setping }) {
     setLiked(!liked);
     setping(!ping);
   };
+
   return (
     <div style={{ position: "relative", borderRadius: 8 }}>
       {user?.category === "admin" && (
@@ -91,21 +102,28 @@ function Cardanimal({ animal, ping, setping }) {
           <div>
             {user?.category !== "admin" && 
 
-          <svg
+<svg
   onClick={(e) => {
     if (!user) {
+      e.stopPropagation();
       e.preventDefault();
       Swal.fire({
         icon: "warning",
         title: "You must log in first",
-        text: "Something went wrong!",
-      });
+        text: "You need to be logged in to like an animal.",
+        confirmButtonText: "Go to Login"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        }
+      });      
     } else {
       e.preventDefault();
       e.stopPropagation();
       handleLikeClick();
     }
   }}
+  className={liked ? "heart liked" : "heart"}
   style={{
     position: "absolute",
     right: 0,
@@ -133,7 +151,7 @@ function Cardanimal({ animal, ping, setping }) {
           </div>
           <div className="animal-sec">
             <div className="animal-desc">
-              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>Disponible</span></div>
+              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>{animal?.Adoption ? "Non disponible" : "Disponible"}</span></div>
               </div>
             <h2>{animal.name}</h2>
             <span className="h1name">{animal.age}</span>

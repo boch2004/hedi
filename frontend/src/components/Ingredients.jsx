@@ -11,16 +11,12 @@ function Ingredients() {
   const animals = useSelector((state) => state.animal?.animalList || []);
   const { id } = useParams();
   const animal = animals.find((p) => p._id === id);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   if (!animal) {
     return <p className="not-found">Animal not found.</p>;
   }
 
-  const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
-    // هنا تنجم تبعث طلب API أو تحدث الstate في redux حسب الباك
-  };
+
 
   const handleAdopt = () => {
     alert("طلب التبني تم إرساله ✨");
@@ -51,7 +47,6 @@ function Ingredients() {
             </p>
           ))}
 
-           {/* onClick={handleAdopt} */}
           <AdoptModal animalId={animal._id} user_id={animal.idanimal}/>
 
         </div>

@@ -1,0 +1,21 @@
+.contentdiv {
+  height: 98px;
+  line-height: 78px;
+  background: url("Capture_cleanup.PNG");
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+.nakcha {
+  background: #ffff;
+  width: 660px;
+  min-height: 260px;
+  margin: 20px 10px;
+  border-radius: 10px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+}
+
+

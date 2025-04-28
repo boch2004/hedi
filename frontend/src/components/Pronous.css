@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   padding: 50px;
-  background-image: url('/pronous.jpg'); /* Chemin de l'image */
+  background-image: url('/image.png'); /* Chemin de l'image */
   background-size: cover; /* Permet de couvrir toute la zone avec l'image */
   background-position: center; /* Centre l'image */
   background-attachment: fixed; /* L'image reste fixe lors du défilement de la page */

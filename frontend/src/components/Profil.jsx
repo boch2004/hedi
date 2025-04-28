@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaBell, FaHeart, FaStar, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaBell, FaHeart, FaStar, FaCog, FaSignOutAlt, FaPaw, FaUsers } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,6 +7,8 @@ import "./UserProfile.css";
 import "./Footer.css";
 import { deleteuser, edituser, logout } from "../JS/userSlice/userSlice";
 import { NavLink } from "react-router-dom";
+import { GiScrollUnfurled } from 'react-icons/gi';
+
 
 
 const Profil = () => {
@@ -61,6 +63,7 @@ const Profil = () => {
       {/* Sidebar */}
       <div className="sidebar">
         <ul className="nav-list">
+          {user?.category === "user" && (
   <li className="nav-item">
     <NavLink
       style={{ marginTop: 60 }} 
@@ -72,16 +75,18 @@ const Profil = () => {
       <FaBell className="icon" /> <h6>User info</h6>
     </NavLink>
   </li>
+          )}
 
   {user?.category === "admin" && (
-    <li className="nav-item">
+    <li  className="nav-item">
       <NavLink
+        style={{ marginTop:60 }}
         to="Les_utlisateurs"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
         }
       >
-        <FaHeart className="icon" /> <h6>Les utilisateurs</h6>
+                <FaUsers className="icon" /> <h6>Les utilisateurs</h6>
       </NavLink>
     </li>
   )}
@@ -93,7 +98,7 @@ const Profil = () => {
           isActive ? "nav-link active" : "nav-link"
         }
       >
-                <FaHeart className="icon" /> <h6>Les animaux</h6>
+                <FaPaw className="icon" /> <h6>Les animaux</h6>
       </NavLink>
     </li>
   )}
@@ -105,7 +110,7 @@ const Profil = () => {
           isActive ? "nav-link active" : "nav-link"
         }
       >
-                <FaHeart className="icon" /> <h6>Histoires</h6>
+                <GiScrollUnfurled className="icon" /> <h6>Histoires</h6>
       </NavLink>
     </li>
   )}
@@ -141,7 +146,7 @@ const Profil = () => {
           isActive ? "nav-link active" : "nav-link"
         }
       >
-                <FaHeart className="icon" /> <h6>adoptions</h6>
+                <FaPaw className="icon" /> <h6>adoptions</h6>
       </NavLink>
     </li>
   )}

@@ -1,0 +1,20 @@
+.heart {
+    transition: transform 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+  }
+  
+  .heart.liked {
+    animation: pop 0.4s ease forwards;
+  }
+  
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

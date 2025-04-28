@@ -4,14 +4,15 @@ const AdoptionRequest = require('../models/AdoptionRequest');
 
 router.post('/', async (req, res) => {
   try {
-    const { name, email, reason, idanimal, iduser } = req.body;
+    const { name, télephone, email, reason, idanimal, iduser } = req.body;
 
-    const newRequest = new AdoptionRequest({ 
-      name, 
-      email, 
+    const newRequest = new AdoptionRequest({
+      name,
+      télephone,
+      email,
       reason,
-      idanimal,   
-      iduser      
+      idanimal,
+      iduser
     });
 
     await newRequest.save();
@@ -21,14 +22,14 @@ router.post('/', async (req, res) => {
   }
 });
 router.get('/', async (req, res) => {
-    try {
-      const requests = await AdoptionRequest.find().sort({ createdAt: -1 });
-      res.json(requests);
-    } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error });
-    }
-  });
-  // DELETE adoption request by ID
+  try {
+    const requests = await AdoptionRequest.find().sort({ createdAt: -1 });
+    res.json(requests);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
+  }
+});
+// DELETE adoption request by ID
 router.delete('/:id', async (req, res) => {
   try {
     const deletedRequest = await AdoptionRequest.findByIdAndDelete(req.params.id);
@@ -40,7 +41,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 });
-  
+
 
 module.exports = router;
- 

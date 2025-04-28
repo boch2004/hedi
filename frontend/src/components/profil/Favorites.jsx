@@ -57,11 +57,12 @@ function Favorites({ ping, setping }) {
                             }}
                         >
                             <Link
-                                to={user ? `/product/${el.idurl}` : "#"}
+                                to={user ? `/animaux/${el.idurl}` : "#"}
                                 onClick={(e) => handleClick(e, el)}
                             >
                                 <img
-                                    src={el?.imgproduct}
+                                style={{ width: "200px", height: "200px" }}
+                                    src={`http://localhost:5000/uploads/${el.imganimal}`}
                                     className="favorite-image"
                                     alt={el?.nameproduct}
                                 />
@@ -74,13 +75,8 @@ function Favorites({ ping, setping }) {
                                 >
                                     🤍
                                 </button>
-                                <Link
-                                    to={user ? `/animaux/${el.idurl}` : "#"}
-                                    onClick={(e) => handleClick(e, el)}
-                                >
-                                    <button className="show-more-button">Show more</button>
-                                </Link>
                             </div>
+
                         </div>
                     ))
             )}
