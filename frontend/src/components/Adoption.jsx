@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
-import { Tag } from "primereact/tag";
-import { ProductService } from "./service/ProductService";
+import { AnimalService } from "./service/AnimalService";
 import { useDispatch, useSelector } from "react-redux";
 import { getanimal } from "../JS/userSlice/animalSlice";
 import Cardanimal from "./Cardanimal";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function NumScrollDemo() {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
+  const [localAnimals, setLocalAnimals] = useState([]);
+  const [showAll, setShowAll] = useState(false);
+
+  const reduxAnimals = useSelector((state) => state.animal?.animalList || []);
+
+  // Options for responsive carousel
   const responsiveOptions = [
     { breakpoint: "1400px", numVisible: 2, numScroll: 1 },
     { breakpoint: "1199px", numVisible: 3, numScroll: 1 },
@@ -18,93 +23,83 @@ export default function NumScrollDemo() {
     { breakpoint: "575px", numVisible: 1, numScroll: 1 },
   ];
 
-  const getSeverity = (product) => {
-    switch (product.inventoryStatus) {
-      case "INSTOCK":
-        return "success";
-      case "LOWSTOCK":
-        return "warning";
-      case "OUTOFSTOCK":
-        return "danger";
-      default:
-        return null;
-    }
-  };
-
+  // Fetch animals for Carousel (local use)
   useEffect(() => {
-    ProductService.getProductsSmall()
-      .then((data) => setProducts(data.slice(0, 9)))
-      .catch((error) => console.error("Error fetching products:", error));
+    const fetchAnimals = async () => {
+      try {
+        const data = await AnimalService.getAnimalsSmall();
+        setLocalAnimals(data.slice(0, 9)); // Limiting to 9 animals
+      } catch (error) {
+        console.error("Erreur lors de la récupération des animaux :", error);
+      }
+    };
+
+    fetchAnimals();
   }, []);
 
-  const productTemplate = (product) => (
+  // Fetch animals into Redux store
+  useEffect(() => {
+    dispatch(getanimal());
+  }, [dispatch]);
+
+  const handleToggleShowAll = () => {
+    setShowAll((prevShowAll) => !prevShowAll);
+  };
+
+  const animalTemplate = (animal) => (
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
-      <div style={{ display: "flex", justifyContent: "center" }} className="mb-3">
-        <img style={{width:220,height:200}} src={`http://localhost:5000/uploads/${product.img}`} alt={product.name} className=" shadow-2" />
+      <div className="mb-3" style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src={`http://localhost:5000/uploads/${animal.img}`}
+          alt={animal.name}
+          className="shadow-2"
+          style={{ width: 220, height: 200 }}
+        />
       </div>
-      <div>
-        <h4 className="mb-1">{product.name}</h4>
-        <h6 style={{justifyContent: "center"}} className="mt-0 mb-3 animal-desc">
-  <span className='h1name'>race:&nbsp;</span>{product.race}
-</h6>
-        <Tag value={product.inventoryStatus} severity={getSeverity(product)} />
-        <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
-
-          <Link to={`/animaux/${product._id}`}>
+      <h4 className="mb-1">{animal.name}</h4>
+      <h6 className="mt-0 mb-3 animal-desc">
+        <span className="h1name">Race:&nbsp;</span>{animal.race}
+      </h6>
+      <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
+        <Link to={`/animaux/${animal._id}`}>
           <Button icon="pi pi-star-fill" className="p-button-success p-button-rounded" />
-          </Link>
-
-        </div>
+        </Link>
       </div>
     </div>
   );
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getanimal()); // جلب البيانات عند تحميل الصفحة
-  }, [dispatch]);
-
-
-  // mapping ✅ استخدم optional chaining لتجنب الأخطاء
-    const [showAll, setShowAll] = useState(false); // ✅ جديد
-  
-    // ...
-  
-    const Animals = useSelector((state) => state.animal?.animalList || []);
-    const visibleAnimals = showAll ? Animals : Animals.slice(0, 0); // ✅ جديد
+  // Select animals to display in Cards
+  const visibleAnimals = showAll ? reduxAnimals : reduxAnimals.slice(0, 0);
 
   return (
     <>
-      <div style={{ padding: "0 200px", background:"#efeff1" }} className="card">
+      {/* Carousel Section */}
+      <div className="card" style={{ padding: "0 200px", background: "#efeff1" }}>
         <Carousel
-          autoplayInterval={5000}
-          circular={true}
-          value={products}
+          value={localAnimals}
+          itemTemplate={animalTemplate}
           numScroll={1}
           numVisible={4}
+          circular
+          autoplayInterval={5000}
           responsiveOptions={responsiveOptions}
-          itemTemplate={productTemplate}
         />
         <Button
-          label={showAll ? "Show Less" : "Show More"}
-          onClick={() => setShowAll(!showAll)}
+          label={showAll ? "Voir moins" : "Voir plus"}
+          onClick={handleToggleShowAll}
           className="p-button-rounded p-button-outlined"
+          style={{ marginTop: "20px" }}
         />
       </div>
+
+      {/* Cards Section */}
       <div className="card-animal">
-      {visibleAnimals.length > 0 ? (
-  visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
-) : null}
-
-
-  {/* ✅ الزرّ يظهر إذا فما أكثر من 6 حيوانات */}
-  {Animals.length > 0 && (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-    </div>
-  )}
-</div>
-
+        {visibleAnimals.length > 0 ? (
+          visibleAnimals.map((el) => <Cardanimal key={el._id} animal={el} />)
+        ) : (
+          <p></p>
+        )}
+      </div>
     </>
   );
 }

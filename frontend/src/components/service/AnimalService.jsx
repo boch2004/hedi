@@ -1,5 +1,5 @@
-export const ProductService = {
-  async getProductsData() {
+export const AnimalService = {
+  async getAnimalsData() {
       try {
           const response = await fetch('http://localhost:5000/animals/'); 
           if (!response.ok) {
@@ -17,31 +17,31 @@ export const ProductService = {
               throw new Error('Data is not an array or does not contain animals array');
           }
       } catch (error) {
-          console.error('Error fetching products:', error);
+          console.error('Error fetching animals:', error);
           return []; // العودة بمصفوفة فارغة في حال حدوث خطأ
       }
   },
 
-  async getProductsMini() {
-      const data = await this.getProductsData(); // استخدام await للحصول على البيانات
+  async getAnimalsMini() {
+      const data = await this.getAnimalsData(); // استخدام await للحصول على البيانات
       return data.slice(0, 5); // استخدام slice فقط إذا كانت البيانات مصفوفة
   },
 
-  async getProductsSmall() {
-      const data = await this.getProductsData();
+  async getAnimalsSmall() {
+      const data = await this.getAnimalsData();
       return data.slice(0, 10);
   },
 
-  async getProducts() {
-      return this.getProductsData();
+  async getAnimals() {
+      return this.getAnimalsData();
   },
 
-  async getProductsWithOrdersSmall() {
-      const data = await this.getProductsWithOrdersData();
+  async getAnimalsWithOrdersSmall() {
+      const data = await this.getAnimalsWithOrdersData();
       return data.slice(0, 10);
   },
 
-  async getProductsWithOrders() {
-      return this.getProductsWithOrdersData();
+  async getAnimalsWithOrders() {
+      return this.getAnimalsWithOrdersData();
   }
 };

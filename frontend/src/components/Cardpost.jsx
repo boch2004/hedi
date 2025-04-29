@@ -4,7 +4,7 @@ import { deletepost } from "../JS/userSlice/postSlice";
 import "./Cardpost.css";
 
 
-function Cardpost({ product }) {
+function Cardpost({ histoire }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -26,15 +26,15 @@ function Cardpost({ product }) {
               top:5,
               color: "red",
             }}
-            onClick={() => handleDelete(product._id)} // ✅ Corrected here
+            onClick={() => handleDelete(histoire._id)} // ✅ Corrected here
           >
             X
           </button>
         )}
   <div className="">
-    <h4 style={{margin:25,color:"black"}}>{product?.title}</h4>
-    <p style={{margin:20,color:"#6c757d"}}>{product?.content}</p>
-    <p style={{position:"absolute",bottom:0,right:10,color:"#6c757d"}}>{product?.Crea}</p>
+    <h4 style={{margin:25,color:"black"}}>{histoire?.title}</h4>
+    <p style={{margin:20,color:"#6c757d"}}>{histoire?.content}</p>
+    <p style={{position:"absolute",bottom:0,right:10,color:"#6c757d"}}>{histoire?.Crea}</p>
   </div>
 </div>
 

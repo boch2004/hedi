@@ -111,6 +111,7 @@ margin-top: 100px;
 .animal-desc{
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .animal-sec{
   display: flex;
@@ -199,4 +200,8 @@ padding-top: 10px;
   font-style: normal;
   font-variation-settings:
     "wdth" 200;
+}
+
+.p-calendar-w-btn-right input{
+  margin: 0px !important;
 }

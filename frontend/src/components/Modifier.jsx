@@ -1,122 +1,174 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { editanimal } from "../JS/userSlice/animalSlice";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
 
 function Modifier({ animal, ping, setping }) {
-    const [show, setShow] = useState(false);
-    const dispatch = useDispatch();
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [edited, setEdited] = useState({});
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (animal) {
-            setEdited({
-                titel: animal.titel || "",
-                img: animal.img || "",
-                description: animal.description || "",
-                name: animal.name || "",
-                race: animal.race || "",
-                age: animal.age || "",
-                gender: animal.gender || "",
-                location: animal.location || "",
-                inventoryStatus: animal.inventoryStatus || "",
-            });
-        }
-    }, [animal]);
+  const raceOptions = [
+    { label: "Labrador", value: "Labrador" },
+    { label: "Berger Allemand", value: "Berger Allemand" },
+    { label: "Chat Persan", value: "Chat Persan" },
+    { label: "Chat Siamois", value: "Chat Siamois" },
+    { label: "Croisé", value: "Croisé" },
+  ];
 
-    return (
-        <>
-            <button onClick={handleShow} style={styles.button}>
-                Edit
-            </button>
+  const genderOptions = [
+    { label: "Mâle", value: "Mâle" },
+    { label: "Femelle", value: "Femelle" },
+  ];
 
-            {show && (
-                <div className="modalinput" style={styles.modalOverlay}>
-                    <div style={styles.modal}>
-                        <h2>Edit Animal</h2>
+  const activiteOptions = [
+    { label: "Calme", value: "Calme" },
+    { label: "Joueur", value: "Joueur" },
+    { label: "Sportif", value: "Sportif" },
+    { label: "Protecteur", value: "Protecteur" },
+    { label: "Indépendant", value: "Indépendant" },
+  ];
+  
 
-                        <label>Title</label>
-                        <input
-                            type="text"
-                            value={edited.titel}
-                            onChange={(e) => setEdited({ ...edited, titel: e.target.value })}
-                            style={styles.input}
-                        />
+  const [edited, setEdited] = useState({});
 
-                        <label>Image URL</label>
-                        <input
-                            type="text"
-                            value={edited.img}
-                            onChange={(e) => setEdited({ ...edited, img: e.target.value })}
-                            style={styles.input}
-                        />
+  useEffect(() => {
+    if (animal) {
+      const parsedDate = animal.birthDate ? new Date(animal.birthDate) : null;
+      setEdited({
+        name: animal.name || "",
+        img: animal.img || "",
+        description: animal.description || "",
+        race: animal.race || "",
+        gender: animal.gender || "",
+        location: animal.location || "",
+        birthDate: parsedDate,
+        age: animal.age || "",
+        Activite: animal.Activite || "",
+        Couleur: animal.Couleur || "", 
+      });
+      
+    }
+  }, [animal]);
 
-                        <label>Description</label>
-                        <input
-                            type="text"
-                            value={edited.description}
-                            onChange={(e) => setEdited({ ...edited, description: e.target.value })}
-                            style={styles.input}
-                        />
+  useEffect(() => {
+    if (edited.birthDate) {
+      const today = new Date();
+      const birth = new Date(edited.birthDate);
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+      setEdited((prev) => ({
+        ...prev,
+        age: `${age} ans`,
+      }));
+    }
+  }, [edited.birthDate]);
 
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            value={edited.name}
-                            onChange={(e) => setEdited({ ...edited, name: e.target.value })}
-                            style={styles.input}
-                        />
+  return (
+    <>
+      <button onClick={() => setShow(true)} style={styles.button}>Modifier</button>
 
-                        <label>Race</label>
-                        <input
-                            type="text"
-                            value={edited.race}
-                            onChange={(e) => setEdited({ ...edited, race: e.target.value })}
-                            style={styles.input}
-                        />
+      {show && (
+        <div style={styles.modalOverlay}>
+          <div style={styles.modal}>
+            <h2>Modifier l'animal</h2>
 
-                        <label>Gender</label>
-                        <input
-                            type="text"
-                            value={edited.gender}
-                            onChange={(e) => setEdited({ ...edited, gender: e.target.value })}
-                            style={styles.input}
-                        />
+            <label>Nom</label>
+            <input
+              value={edited.name}
+              onChange={(e) => setEdited({ ...edited, name: e.target.value })}
+              style={styles.input}
+            />
 
-                        <label>Location</label>
-                        <input
-                            type="text"
-                            value={edited.location}
-                            onChange={(e) => setEdited({ ...edited, location: e.target.value })}
-                            style={styles.input}
-                        />
+            <label>Image (URL)</label>
+            <input
+              value={edited.img}
+              onChange={(e) => setEdited({ ...edited, img: e.target.value })}
+              style={styles.input}
+            />
 
-                        <div style={styles.buttonGroup}>
-                            <button onClick={handleClose} style={styles.cancelButton}>
-                                Close
-                            </button>
-                            <button
-                                onClick={() => {
-                                    dispatch(editanimal({ id: animal._id, edited }));
-                                    setping(!ping);
-                                    handleClose();
-                                }}
-                                style={styles.saveButton}
-                            >
-                                Save Changes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </>
-    );
+            <label>Description</label>
+            <input
+              value={edited.description}
+              onChange={(e) => setEdited({ ...edited, description: e.target.value })}
+              style={styles.input}
+            />
+
+            <label>Race</label>
+            <Dropdown
+              value={edited.race}
+              options={raceOptions}
+              onChange={(e) => setEdited({ ...edited, race: e.value })}
+              placeholder="Choisir une race"
+              className="p-inputtext-sm"
+            />
+
+            <label>Sexe</label>
+            <Dropdown
+              value={edited.gender}
+              options={genderOptions}
+              onChange={(e) => setEdited({ ...edited, gender: e.value })}
+              placeholder="Choisir le sexe"
+              className="p-inputtext-sm"
+            />
+
+            <label>Date de naissance</label>
+            <Calendar
+                id="date"
+              value={edited.birthDate}
+              onChange={(e) => setEdited({ ...edited, birthDate: e.value })}
+              dateFormat="dd/mm/yy"
+              showIcon
+            />
+
+<label>Activité</label>
+<Dropdown
+  value={edited.Activite}
+  options={activiteOptions}
+  onChange={(e) => setEdited({ ...edited, Activite: e.value })}
+  placeholder="Choisir une activité"
+  className="p-inputtext-sm"
+/>
+<label>Couleur</label>
+<input
+  value={edited.Couleur}
+  onChange={(e) => setEdited({ ...edited, Couleur: e.target.value })}
+  style={styles.input}
+/>
+
+
+
+
+            <label>Lieu</label>
+            <input
+              value={edited.location}
+              onChange={(e) => setEdited({ ...edited, location: e.target.value })}
+              style={styles.input}
+            />
+
+            <div style={styles.buttonGroup}>
+              <button onClick={() => setShow(false)} style={styles.cancelButton}>Annuler</button>
+              <button
+                onClick={() => {
+                  dispatch(editanimal({ id: animal._id, edited }));
+                  setping(prev => !prev);
+                  setShow(false);
+                }}
+                style={styles.saveButton}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
-
-
-// تعريف الأنماط CSS داخل كائن JavaScript
 const styles = {
     button: {
         padding: "10px 15px",
@@ -128,18 +180,19 @@ const styles = {
         margin: "5px",
     },
     modalOverlay: {
-        position: "fixed",
-        zIndex: 100000000000, // يجب استخدام "zIndex" بدلاً من "z-index"
+        position: "absolute",
         top: 0,
-        left: 0,
+        left: 0,        
         width: "100%",
-        height: "100%",
+        height: "110%",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
     modal: {
+        position: "absolute",
+        top: 100,
         backgroundColor: "white",
         padding: "20px",
         borderRadius: "10px",
@@ -153,7 +206,8 @@ const styles = {
         padding: "8px",
         border: "1px solid #ccc",
         borderRadius: "5px",
-    },
+        margin:0,
+        },
     textarea: {
         width: "100%",
         padding: "8px",
@@ -185,5 +239,3 @@ const styles = {
 };
 
 export default Modifier;
-
-

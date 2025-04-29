@@ -29,7 +29,7 @@ function Favorites({ ping, setping }) {
     const handleDelete = (elId, e) => {
         e.stopPropagation(); // Prevent the link from being followed
         dispatch(deletefavoris(elId));
-        setping(!ping);
+        setping(prev => !prev);
     };
 
     return (
@@ -64,7 +64,7 @@ function Favorites({ ping, setping }) {
                                 style={{ width: "200px", height: "200px" }}
                                     src={`http://localhost:5000/uploads/${el.imganimal}`}
                                     className="favorite-image"
-                                    alt={el?.nameproduct}
+                                    alt={el?.name}
                                 />
                             </Link>
                             <h5 className="favorite-title">{el?.nameuser}</h5>

@@ -22,7 +22,7 @@ import { getanimal } from "./JS/userSlice/animalSlice";
 import { getpost } from "./JS/userSlice/postSlice";
 import Mes_animaux from "./components/profil/Mes_animaux";
 import Les_animaux from "./components/profil/Les_animaux";
-import Ingredients from "./components/Ingredients";
+import Animaldetails from "./components/Animaldetails";
 import Favorites from "./components/profil/favorites";
 import { getfavoris } from "./JS/userSlice/favorisslice";
 import AdoptionDashboard from "./components/profil/AdoptionDashboard";
@@ -50,18 +50,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Pricing" element={<Conseil />} />
-        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/register" element={<Register ping={ping} setping={setping} />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Nous" element={<Pronous />} />
         <Route path="/Conseil" element={<Conseil />} />
         <Route path="/Ajouter" element={<Ajouter />} />
         <Route path="/histoire" element={<Histoires ping={ping} setping={setping} />} />        
         <Route path="/Adoption" element={<Adoption />} />
-        <Route path="/animaux/:id" element={<Ingredients  ping={ping} setping={setping}  />} />
+        <Route path="/animaux/:id" element={<Animaldetails  ping={ping} setping={setping}  />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profil/" element={<Profil />}>
             <Route path="info" element={<Info />} />
-            <Route path="" element={<ProfileSection />} />
+            <Route path="" element={<ProfileSection ping={ping} setping={setping} />} />
             <Route path="Les_utlisateurs" element={<Les_utlisateurs ping={ping} setping={setping}   />} />
             <Route path="Les_animaux" element={<Les_animaux ping={ping} setping={setping}   />} />            
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />

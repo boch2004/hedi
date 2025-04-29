@@ -1,0 +1,128 @@
+/* ====== Titre ====== */
+.inputt h1 {
+    font-size: 2rem !important;
+    margin-bottom: 1rem;
+    color: #333 !important;
+    text-align: center !important;
+}
+
+/* ====== Sous-titre ====== */
+.inputt h5 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: #555 !important;
+    font-weight: 600 !important;
+}
+
+.inputt h5 span {
+    color: red !important;
+}
+
+/* ====== Inputs Text & File ====== */
+.inputt input[type="text"],
+.inputt input[type="file"] {
+    width: 100% !important;
+    padding: 0.7rem;
+    border: 1px solid #ccc !important;
+    border-radius: 8px;
+    font-size: 1rem !important;
+    background-color: #fff !important;
+    transition: 0.3s !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0.5rem;
+}
+
+.inputt input[type="text"]:focus,
+.inputt input[type="file"]:focus {
+    border-color: #4CAF50 !important;
+    outline: none !important;
+}
+
+/* ====== PrimeReact Dropdown ====== */
+.p-dropdown {
+    width: 100% !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.p-dropdown .p-inputtext {
+    padding: 0.7rem !important;
+}
+
+.p-dropdown-panel {
+    border-radius: 8px !important;
+}
+
+/* ====== PrimeReact Calendar ====== */
+.p-calendar {
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+}
+
+.p-calendar .p-inputtext {
+    padding: 0.7rem !important;
+    border-radius: 8px ;
+}
+.p-button-icon-only{
+    border-radius: 0 8px 8px 0 !important;
+    height: 43.37px;
+}
+.p-inputtext {
+    border-radius: 8px 0 0 8px !important;
+    height: 43.38px;
+}
+
+/* ====== Wrapper (Bouton) ====== */
+.wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 2rem;
+}
+
+.wrapper a {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    padding: 0.8rem 2rem !important;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    transition: 0.3s !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    display: inline-block !important;
+}
+
+.wrapper a:hover {
+    background-color: #45a049 !important;
+}
+
+/* ====== Form Container ====== */
+.inputt {
+    background-color: #efeff1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 30px !important;
+    max-width: 600px !important;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+    .inputt {
+        padding: 20px !important;
+        max-width: 100% !important;
+    }
+
+    .inputt h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .wrapper a {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}

@@ -26,7 +26,8 @@ function Register() {
       return;
     }
     dispatch(userRegister(register));
-    navigate("/profil");
+    navigate("/");
+    setping(prev => !prev);
   };
 
   return (

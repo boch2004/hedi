@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteanimal } from "../JS/userSlice/animalSlice";
+import { deleteanimal, editanimal } from "../JS/userSlice/animalSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addfavoris, deletefavoris } from "../JS/userSlice/favorisslice";
@@ -38,7 +38,6 @@ function Cardanimal({ animal, ping, setping }) {
     nameanimal: "",
     imganimal: "",
     description: "",
-    chef: "",
     idurl: animal?._id || "",
   });
 
@@ -49,7 +48,6 @@ function Cardanimal({ animal, ping, setping }) {
         nameuser: `${user.name} ${user.lastname}`,
         nameanimal: animal.titel,
         imganimal: animal.img,
-        chef: "",
         idurl: animal?._id || "",
       });
 
@@ -75,9 +73,8 @@ function Cardanimal({ animal, ping, setping }) {
      
     }
     setLiked(!liked);
-    setping(!ping);
+    setping(prev => !prev);
   };
-
   return (
     <div style={{ position: "relative", borderRadius: 8 }}>
       {user?.category === "admin" && (
@@ -151,7 +148,7 @@ function Cardanimal({ animal, ping, setping }) {
           </div>
           <div className="animal-sec">
             <div className="animal-desc">
-              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>{animal?.Adoption ? "Non disponible" : "Disponible"}</span></div>
+              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>{animal?.adoption ? "Non disponible" : "Disponible"}</span></div>
               </div>
             <h2>{animal.name}</h2>
             <span className="h1name">{animal.age}</span>

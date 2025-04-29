@@ -55,14 +55,6 @@ export const edituser = createAsyncThunk("user/edit", async({id,edited})=>{
   }
 })
 
-export const toggleFavorite = createAsyncThunk(
-  'user/toggleFavorite',
-  async ({ userId, recipeId }) => {
-    const { data } = await axios.post('/api/users/toggle-favorite', { userId, recipeId });
-    return data.favorites;
-  }
-);
-
 export const getusers = createAsyncThunk("user/get", async () => {
   try {
       let result = axios.get("http://localhost:5000/user/")
@@ -89,9 +81,6 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
-        state.favorites = action.payload;
-      })
       .addCase(userRegister.pending, (state) => {
         state.status = "pending";
       })

@@ -144,34 +144,6 @@ router.get("/", async (req, res) => {
   }
 })
 
-//Ajouter au favourite
-  router.post('/toggle-favorite', async (req, res) => {
-    //ajouter un animal au  favoris
-
-  try {
-    const { userId, recipeId } = req.body;
-    const user = await User.findById(userId);
-
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    // التحقق مما إذا كانت الوصفة مضافة للمفضلة
-    const isFavorited = user.favorites.includes(recipeId);
-
-    if (isFavorited) {
-      // إذا كانت مضافة، يتم إزالتها
-      user.favorites = user.favorites.filter(id => id.toString() !== recipeId);
-    } else {
-      // إذا لم تكن مضافة، يتم إضافتها
-      user.favorites.push(recipeId);
-    }
-
-    await user.save();
-    res.json({ favorites: user.favorites, message: isFavorited ? "Removed from favorites" : "Added to favorites" });
-
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-})
 
 
 

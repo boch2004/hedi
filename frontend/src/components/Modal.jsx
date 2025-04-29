@@ -57,7 +57,7 @@ function Modal({ animal, ping, setping }) {
               <button
                 onClick={() => {
                   dispatch(addpost(newpost));
-                  setping(!ping);
+                  setping(prev => !prev);
                   Swal.fire({
                     position: "center",
                     icon: "success",

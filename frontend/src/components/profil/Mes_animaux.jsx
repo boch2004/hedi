@@ -22,8 +22,8 @@ function Mes_animaux({ ping, setping }) {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteanimal(id));
-        setping(!ping);
-        Swal.fire("Deleted!", "Your recipe has been deleted.", "success");
+        setping(prev => !prev);
+        Swal.fire("Deleted!", "Your animal has been deleted.", "success");
       }
     });
   };

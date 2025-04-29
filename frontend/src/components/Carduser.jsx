@@ -3,12 +3,13 @@ import "./Carduser.css"; // Fichier CSS pour le style
 import { useDispatch } from 'react-redux';
 import { deleteuser } from '../JS/userSlice/userSlice';
 
-function Carduser({ user }) {
+function Carduser({ user,ping,setping }) {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
       dispatch(deleteuser(id));
+      setping(prev => !prev);
     }
   };
 

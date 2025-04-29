@@ -4,7 +4,7 @@
   import Swal from "sweetalert2";
   import "../UserProfile.css";
 import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
-  const ProfileSection = () => {
+  const ProfileSection = ({ping,setping}) => {
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -49,6 +49,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
           dispatch(deleteuser(user._id));
           Swal.fire("Deleted!", "Your account has been deleted.", "success");
           navigate("/login");
+          setping(prev => !prev);
         }
       });
     };

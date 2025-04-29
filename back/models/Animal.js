@@ -4,7 +4,6 @@ const schema = mongoose.Schema;
 // Création d'un raccourci pour mongoose.Schema
 
 const animalsSchema = new schema({
-  titel: String,
   name: String,
   img: String,
   description: String,
@@ -13,11 +12,13 @@ const animalsSchema = new schema({
   location: String,
   category: { type: String, default: "all" },
   user: String,
-  Adoption: Boolean,
+  adoption: Boolean,
   inventoryStatus:String,
   idanimal:String,
-  age : String,
+  age: String,
   remarque: String,
+  Couleur: String,
+  Activite:String,
 });
 
 const Animals = mongoose.model("Animals", animalsSchema);

@@ -21,7 +21,7 @@ function Histoires({ ping, setping}) {
       )}
       <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around",}}>
       {poste.length > 0 ? (
-        poste.map((el) => <Cardpost  product={el} />)
+        poste.map((el) => <Cardpost  histoire={el} />)
       ) : (
         <p>No posts available</p>
       )}
