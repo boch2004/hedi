@@ -62,7 +62,7 @@ export default function NumScrollDemo() {
       </h6>
       <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
         <Link to={`/animaux/${animal._id}`}>
-          <Button icon="pi pi-star-fill" className="p-button-success p-button-rounded" />
+          <button className="info-button" style={{height:50,padding:10}}>Plus d'informations</button>
         </Link>
       </div>
     </div>

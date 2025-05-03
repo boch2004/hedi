@@ -6,7 +6,9 @@ const adoptionRequestSchema = new mongoose.Schema({
   reason: String,
   télephone: String,
   idanimal:String,
+  proprietaire:String,
   iduser:String,
+  myid:String,
   createdAt: {
     type: Date,
     default: Date.now

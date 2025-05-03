@@ -102,6 +102,18 @@ const Profil = () => {
       </NavLink>
     </li>
   )}
+          {user?.category === "admin" && (
+            <li className="nav-item">
+              <NavLink
+                to="Lesadoptions"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <FaPaw className="icon" /> <h6>Lesadoptions</h6>
+              </NavLink>
+            </li>
+          )}
    {user?.category === "admin" && (
     <li className="nav-item">
       <NavLink
@@ -138,6 +150,18 @@ const Profil = () => {
       </NavLink>
     </li>
   )}
+          {user?.category === "user" && (
+            <li className="nav-item">
+              <NavLink
+                to="Mes_demandes"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <FaHeart className="icon" /> <h6>Mes_demandes</h6>
+              </NavLink>
+            </li>
+          )}
   {user?.category === "user" && (
     <li className="nav-item">
       <NavLink

@@ -8,11 +8,14 @@ function Modal({ animal, ping, setping }) {
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const user = useSelector((state) => state.user.user);
+
 
   // Déclaration de l'état 'newpost' pour l'ajout du post
   const [newpost, setnewpost] = useState({
     title: "",
     content: "",
+    userid: user?._id,
   });
 
   // Utilisation de useEffect pour mettre à jour les valeurs de 'newpost' avec les données de l'animal
@@ -27,15 +30,17 @@ function Modal({ animal, ping, setping }) {
 
   return (
     <>
+    <div style={{display:"flex",justifyContent:"center"}}>
       <button onClick={handleShow} style={styles.button} disabled={show}>
-        Add
+        Ajouter mon histoire
       </button>
+      </div>
 
       {show && (
         <div className="modalinput" style={styles.modalOverlay} onClick={handleClose}>
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2>Add Post</h2>
-            <label>Title</label>
+            <h2>Ajouter une Histoire</h2>
+            <label>Titre</label>
             <input
               type="text"
               value={newpost.title}
@@ -43,7 +48,7 @@ function Modal({ animal, ping, setping }) {
               style={styles.input}
               autoFocus
             />
-            <label>Content</label>
+            <label>Contenu</label>
             <input
               type="text"
               value={newpost.content}
@@ -52,7 +57,7 @@ function Modal({ animal, ping, setping }) {
             />
             <div style={styles.buttonGroup}>
               <button onClick={handleClose} style={styles.cancelButton}>
-                Close
+                Fermé
               </button>
               <button
                 onClick={() => {
@@ -69,7 +74,7 @@ function Modal({ animal, ping, setping }) {
                 }}
                 style={styles.saveButton}
               >
-                Save Changes
+                Ajouter
               </button>
             </div>
           </div>
@@ -83,7 +88,7 @@ function Modal({ animal, ping, setping }) {
 const styles = {
   button: {
     padding: "10px 15px",
-    backgroundColor: "#007bff",
+    backgroundColor: "#6366f1",
     color: "white",
     border: "none",
     borderRadius: "5px",

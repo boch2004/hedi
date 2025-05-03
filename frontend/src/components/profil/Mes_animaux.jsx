@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteanimal } from "../../JS/userSlice/animalSlice";
 import { Link } from "react-router";
+import { FaTimes } from "react-icons/fa";
 
 function Mes_animaux({ ping, setping }) {
   const user = useSelector((state) => state.user.user);
@@ -35,23 +36,45 @@ function Mes_animaux({ ping, setping }) {
         ) : (
           Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
             <div key={el._id} className="animal-card">
-              <Link to={`/animaux/${el._id}`}><img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.titel} /></Link>
+              <Link to={`/animaux/${el._id}`}><img style={{ width: 250, height: 250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.name} /></Link>
               <div className="animal-sec">
+                <button
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center", background: "none", border: "none", position: "relative", bottom: 226, left: 98, color: "red"
+                  }}
+                  onClick={() => handleDelete(el?._id)}
+                >
+                  <span
+                    style={{
+                      marginTop: 13,
+                      width: "27px",
+                      height: "27px",
+                      backgroundColor: "#ef4444",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <FaTimes
+                      style={{
+                        color: "white",
+                        fontSize: "20px",
+                        paddingRight: 8,
+                      }}
+                    />
+                  </span>
+                </button>
                 <p className="animal-desc">
                   <strong className="h1name">Name:&nbsp;</strong><span style={{ color: "#606060" }}>{el.name}</span>
                 </p>
                 <p className="animal-desc">
                   <strong className="h1name">Gender:&nbsp;</strong><span style={{ color: "#606060" }}>{el.gender}</span>
                 </p>
-                <div style={{display:"flex",justifyContent:"space-around",width:"100%"}}> 
-                 <Modifier animal={el} ping={ping} setping={setping} />
-
-                  <button
-                    onClick={() => handleDelete(el?._id)}
-                    className="delete-button"
-                  >
-                    Supprimer
-                  </button></div>
+                <div style={{ display: "flex", justifyContent: "space-around", width: "100%" }}>
+                  <Modifier animal={el} ping={ping} setping={setping} />
+                  <Link to={`/animaux/${el._id}`}><button className="info-button">Plus d'informations</button></Link>
+                </div>
               </div>
             </div>
           ))

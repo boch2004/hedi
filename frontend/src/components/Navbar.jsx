@@ -60,7 +60,8 @@ function ColorSchemesExample() {
              <img
              style={{width:35, height:35,}}
             src={
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnBLMyaL-5gh0nhP-vircgmtkHER58KHoMAw&s"
+              user?.img ||
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnBLMyaL-5gh0nhP-vircgmtkHER58KHoMAw&s"
             }
             alt="Profile"
             className="profile-img"

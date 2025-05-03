@@ -16,8 +16,6 @@ function Les_utlisateurs({ ping, setping }) {
                 <span style={{ width: 100 }}>Téléphone</span>
                 <span style={{ width: 200 }}>Localisation</span>
                 <span style={{ width: 50 }}>Delete</span>
-
-
             </li>
             <div className="card-user" >
                 {user?.filter(u => u.category !== "admin").map((el) => (<Carduser ping={ping} setping={setping} key={el.id} user={el} />))}

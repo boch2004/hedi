@@ -17,7 +17,7 @@ import ProfileSection from "./components/profil/ProfileSection";
 import Info from "./components/profil/Info";
 import Les_utlisateurs from "./components/profil/Les_utlisateurs";
 import { useDispatch, useSelector } from "react-redux";
-import { getusers, userCurrent } from "./JS/userSlice/userSlice";
+import { fetchUserById, getusers, userCurrent } from "./JS/userSlice/userSlice";
 import { getanimal } from "./JS/userSlice/animalSlice";
 import { getpost } from "./JS/userSlice/postSlice";
 import Mes_animaux from "./components/profil/Mes_animaux";
@@ -26,12 +26,15 @@ import Animaldetails from "./components/Animaldetails";
 import Favorites from "./components/profil/favorites";
 import { getfavoris } from "./JS/userSlice/favorisslice";
 import AdoptionDashboard from "./components/profil/AdoptionDashboard";
+import Lesadoptions from "./components/profil/Lesadoptions";
+import Mes_demandes from "./components/profil/Mes_demandes";
 
 
 
 function App() {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const userId = user?._id;
   const [ping, setping] = useState(false)
   useEffect(() => {
     dispatch(userCurrent());
@@ -40,7 +43,17 @@ function App() {
     dispatch(getpost());
     dispatch(getfavoris());
   }, [ping])
-
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserById(userId));
+    }
+  }, [dispatch, userId]);
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchUserById(user._id));
+    }
+  }, [dispatch, user]);
+  
 
   return (
     <>
@@ -68,6 +81,8 @@ function App() {
             <Route path="Histoiress" element={<Histoires ping={ping} setping={setping} />} />
             <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
             <Route path="adoptions" element={<AdoptionDashboard />} />
+            <Route path="Lesadoptions" element={<Lesadoptions />} />
+            <Route path="Mes_demandes" element={<Mes_demandes />} />
 
           </Route>
         </Route>

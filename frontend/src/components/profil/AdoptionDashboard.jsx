@@ -75,7 +75,7 @@ function AdoptionDashboard() {
         </thead>
         <tbody>
   {userRequests.map((r) => {
-    const animal = animals.find((p) => p._id === r.idanimal); // idanimal مش r._id
+    const animal = animals.find((p) => p._id === r.idanimal); 
     const handleAdopt = () => {
       dispatch(
         editanimal({
@@ -98,7 +98,6 @@ function AdoptionDashboard() {
           <span
             onClick={() => {
               handleAdopt(); // تأكيد التبني
-              handleDelete(r._id);     // حذف الطلب
             }}
             style={{ fontSize: 26, cursor: "pointer" }}
           >

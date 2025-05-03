@@ -15,12 +15,13 @@ function Ajouter() {
     { label: "Femelle", value: "Femelle" },
   ];
 
-  const raceOptions = [
-    { label: "Labrador", value: "Labrador" },
-    { label: "Berger Allemand", value: "Berger Allemand" },
-    { label: "Chat Persan", value: "Chat Persan" },
-    { label: "Chat Siamois", value: "Chat Siamois" },
-    { label: "Croisé", value: "Croisé" },
+  const TypeOptions = [
+    { label: "Chats",value: "Chats" },
+    { label: "Chiens", value: "Chiens" },
+    { label: "Petits Mammifères", value: "Petits Mammifères" },
+    { label: "Oiseaux", value: "Oiseaux" },
+    { label: " Reptiles & Amphibiens", value: " Reptiles & Amphibiens" },
+    { label: " Poissons", value: " Poissons" },
   ];
 
   const activiteOptions = [
@@ -36,6 +37,7 @@ function Ajouter() {
     img: "",
     description: "",
     race: "",
+    Type:"",
     age: "",
     birthDate: null,
     gender: "",
@@ -44,6 +46,7 @@ function Ajouter() {
     location: "",
     remarque: "",
     idanimal: user?._id,
+    proprietaire:user?.name,
   });
 
   // حساب العمر بناءً على التاريخ المحدد من Calendar
@@ -90,6 +93,7 @@ function Ajouter() {
       newanimal.gender &&
       newanimal.Activite &&
       newanimal.Couleur &&
+      newanimal.Type &&
       newanimal.location &&
       newanimal.remarque
     );
@@ -165,17 +169,29 @@ function Ajouter() {
           <div style={{ display: "flex", gap: "10px" }}>
             <div style={{ flex: 1 }}>
               <h5>
-                Race<span>*</span>
+                Type d'animal<span>*</span>
               </h5>
               <Dropdown
-                value={newanimal.race}
-                options={raceOptions}
-                onChange={(e) => setnewanimal({ ...newanimal, race: e.value })}
-                placeholder="Choisir une race"
+                value={newanimal.Type}
+                options={TypeOptions}
+                onChange={(e) => setnewanimal({ ...newanimal, Type: e.value })}
+                placeholder="Choisir un Type d'animal"
                 className="p-inputtext-sm"
               />
             </div>
             <div style={{ flex: 1 }}>
+              <h5>
+                Race<span>*</span>
+              </h5>
+              <input
+                type="text"
+                onChange={(e) =>
+                  setnewanimal({ ...newanimal, race: e.target.value })
+                }
+              />
+            </div>
+
+            <div style={{ flex: 2 }}>
               <h5>
                 Date de naissance<span>*</span>
               </h5>
@@ -266,6 +282,7 @@ function Ajouter() {
                   formData.append("img", newanimal.img);
                   formData.append("description", newanimal.description);
                   formData.append("race", newanimal.race);
+                  formData.append("Type", newanimal.Type);
                   formData.append("gender", newanimal.gender);
                   formData.append("location", newanimal.location);
                   formData.append("remarque", newanimal.remarque);
@@ -273,6 +290,8 @@ function Ajouter() {
                   formData.append("Activite", newanimal.Activite);
                   formData.append("age", newanimal.age);
                   formData.append("idanimal", newanimal.idanimal);
+                  formData.append("proprietaire", newanimal.proprietaire);
+
 
                   dispatch(addanimal(formData));
 

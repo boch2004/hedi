@@ -2,16 +2,30 @@ import React from 'react';
 import "./Carduser.css"; // Fichier CSS pour le style
 import { useDispatch } from 'react-redux';
 import { deleteuser } from '../JS/userSlice/userSlice';
+import Swal from 'sweetalert2';
 
 function Carduser({ user,ping,setping }) {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
-      dispatch(deleteuser(id));
-      setping(prev => !prev);
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: "Cette action est irréversible !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteuser(id));
+        setping(prev => !prev);
+        Swal.fire('Supprimé !', 'L’utilisateur a été supprimé.', 'success');
+      }
+    });
   };
+
 
   return (
     <div className="user-list-container">

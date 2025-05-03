@@ -19,17 +19,19 @@ function Animaldetails() {
         <img
           className="animal-imgg"
           src={`http://localhost:5000/uploads/${animal?.img}`}
-          alt={animal?.titel}
+          alt={animal?.name}
         />
         <div className="animal-detailss">
-          <h4 className="animal-titlee">{animal?.titel}</h4>
+          <h4 className="animal-titlee">{animal?.name}</h4>
 
           {[
             { label: "Description", value: animal?.description },
             { label: "Name", value: animal?.name },
+            { label: " Type d'animal", value: animal?.Type },
             { label: "Race", value: animal?.race },
             { label: "Gender", value: animal?.gender },
             { label: "Location", value: animal?.location },
+            { label: "adoption", value: animal?.adoption ? "Non disponible" : "Disponible"  },
           ].map((item, index) => (
             <p className="animal-descc" key={index}>
               <strong>{item.label}:</strong>&nbsp;
@@ -37,7 +39,7 @@ function Animaldetails() {
             </p>
           ))}
          {user?.category !== "admin" && user?._id !== animal.idanimal ? (
-  <AdoptModal animalId={animal._id} user_id={animal.idanimal} />
+            <AdoptModal proprietaire={animal?.proprietaire} animalId={animal._id} user_id={animal.idanimal} />
 ) : user?._id === animal.idanimal ? (
   <p style={{ fontStyle: "italic", color: "green" }}>
     C'est votre propre animal.

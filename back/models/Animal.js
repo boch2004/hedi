@@ -8,6 +8,7 @@ const animalsSchema = new schema({
   img: String,
   description: String,
   race: String,
+  Type:String,
   gender: String,
   location: String,
   category: { type: String, default: "all" },
@@ -19,6 +20,7 @@ const animalsSchema = new schema({
   remarque: String,
   Couleur: String,
   Activite:String,
+  proprietaire:String,
 });
 
 const Animals = mongoose.model("Animals", animalsSchema);

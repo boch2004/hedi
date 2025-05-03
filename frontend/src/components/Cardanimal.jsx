@@ -35,7 +35,7 @@ function Cardanimal({ animal, ping, setping }) {
   const [newfavoris, setnewfavoris] = useState({
     iduser: user?._id,
     nameuser: user?.name + " " + user?.lastname,
-    nameanimal: "",
+    nameanimal: animal?.name,
     imganimal: "",
     description: "",
     idurl: animal?._id || "",
@@ -46,7 +46,7 @@ function Cardanimal({ animal, ping, setping }) {
       setnewfavoris({
         iduser: user._id,
         nameuser: `${user.name} ${user.lastname}`,
-        nameanimal: animal.titel,
+        nameanimal: animal.name,
         imganimal: animal.img,
         idurl: animal?._id || "",
       });
@@ -143,7 +143,7 @@ function Cardanimal({ animal, ping, setping }) {
             <img
               style={{ width: 224, height: 236 }}
               src={`http://localhost:5000/uploads/${animal.img}`}
-              alt={animal?.titel}
+              alt={animal?.name}
             />
           </div>
           <div className="animal-sec">

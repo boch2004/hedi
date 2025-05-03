@@ -75,21 +75,32 @@ animalRouter.delete("/:id", async (req, res) => {
 });
 
 // ✅ تعديل حيوان
-animalRouter.put("/:id", async (req, res) => {
+animalRouter.put("/:id", upload.single("img"), async (req, res) => {
   try {
-    let result = await Animal.findByIdAndUpdate(
+    const updateData = {
+      ...req.body,
+    };
+
+    if (req.file) {
+      updateData.img = req.file.filename;
+    }
+
+    const result = await Animal.findByIdAndUpdate(
       req.params.id,
-      { $set: { ...req.body } },
-      { new: true } // ✅ يجعل Mongoose يعيد العنصر المحدث مباشرة
+      { $set: updateData },
+      { new: true }
     );
+
     if (!result) {
       return res.status(404).send({ error: "Animal not found" });
     }
+
     return res.status(200).send({ animal: result, msg: "Animal is updated" });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ error: "Error updating animal" });
   }
 });
+
 
 module.exports = animalRouter;

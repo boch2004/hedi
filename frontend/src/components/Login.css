@@ -34,6 +34,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  margin-bottom: 20px !important;
 }
 
 /* Bouton de connexion */
@@ -79,10 +80,10 @@
   text-decoration: underline;
 }
 .eye-icon {
-  position: absolute;
-  right: 39%;
+  position: relative;
+  left: 128px;
   /* يمكنك تغيير هذه القيمة لتحريك العين أفقيًا */
-  top: 53%;
+  bottom: 58px;
   transform: translateY(-50%);
   /* لتوسيط الأيقونة عموديًا */
   cursor: pointer;

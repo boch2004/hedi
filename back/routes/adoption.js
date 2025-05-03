@@ -4,7 +4,7 @@ const AdoptionRequest = require('../models/AdoptionRequest');
 
 router.post('/', async (req, res) => {
   try {
-    const { name, télephone, email, reason, idanimal, iduser } = req.body;
+    const { name, télephone, email, reason, idanimal, iduser, proprietaire,myid } = req.body;
 
     const newRequest = new AdoptionRequest({
       name,
@@ -12,7 +12,9 @@ router.post('/', async (req, res) => {
       email,
       reason,
       idanimal,
-      iduser
+      iduser,
+      proprietaire,
+      myid
     });
 
     await newRequest.save();

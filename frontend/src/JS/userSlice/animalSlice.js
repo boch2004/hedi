@@ -41,12 +41,17 @@ export const deleteanimal = createAsyncThunk("animal/delete", async (id, { rejec
 // ✅ تعديل حيوان
 export const editanimal = createAsyncThunk("animal/edit", async ({ id, edited }, { rejectWithValue }) => {
     try {
-        let response = await axios.put(`${API_URL}/${id}`, edited);
+        let response = await axios.put(`${API_URL}/${id}`, edited, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
         return response.data.animal;
     } catch (error) {
         return rejectWithValue(error.response?.data || error.message || "Error editing animal");
     }
 });
+
 
 // ✅ الحالة الابتدائية
 const initialState = {

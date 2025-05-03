@@ -136,6 +136,8 @@ margin-top: 100px;
   justify-content: center;
   width: 880px;
   background: white;
+  border-radius:0 0 10px 10px;
+  padding-bottom: 50px;
 
 }
 .Group div {
@@ -163,6 +165,13 @@ padding-top: 10px;
 .delete-button{
   margin: 5px;
   background: red;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+.info-button {
+  margin: 5px;
+  background: #f56a00;
   border: none;
   color: #fff;
   border-radius: 5px;

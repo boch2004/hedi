@@ -5,7 +5,8 @@ import { submitAdoptionRequest } from "../JS/userSlice/adoptionSlice";
 import Swal from 'sweetalert2';
 import { toast, ToastContainer } from 'react-toastify';
 
-function AdoptModal({ animalId, user_id }) {
+function AdoptModal({ animalId, user_id,proprietaire }) {
+
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.adoption);
@@ -39,8 +40,9 @@ function AdoptModal({ animalId, user_id }) {
       reason: reason, // On récupère directement depuis le state
       idanimal: animalId,
       iduser: user_id,
+      proprietaire: proprietaire,
+      myid:user?._id
     };
-
     dispatch(submitAdoptionRequest(formData)).then((res) => {
       if (!res.error) {
         toast.success("Votre demande a été envoyée avec succès !", {

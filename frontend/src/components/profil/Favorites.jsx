@@ -67,7 +67,7 @@ function Favorites({ ping, setping }) {
                                     alt={el?.name}
                                 />
                             </Link>
-                            <h5 className="favorite-title">{el?.nameuser}</h5>
+                            <h5 className="favorite-title">{el?.nameanimal}</h5>
                             <div className="favorite-buttons">
                                 <button
                                     onClick={(e) => handleDelete(el?._id, e)}
