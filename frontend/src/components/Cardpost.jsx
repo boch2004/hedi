@@ -14,7 +14,7 @@ function Cardpost({ histoire }) {
     Swal.fire({
       title: "Êtes-vous sûr ?",
       text: "Cette action est irréversible !",
-      icon: "warning",
+      icon: "Attention",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
@@ -32,6 +32,7 @@ function Cardpost({ histoire }) {
     <>
 <div className="nakcha">
         {(user?._id === histoire?.userid || user?.category === "admin") && (
+          // user le owner de histoire 
           <button
             style={{
               border: "none",

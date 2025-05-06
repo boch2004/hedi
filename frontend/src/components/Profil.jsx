@@ -183,7 +183,7 @@ const Profil = () => {
         isActive ? "nav-link active" : "nav-link"
       }
     >
-      <FaCog className="icon" /> <h6>Settings</h6>
+      <FaCog className="icon" /> <h6>Paramètres</h6>
     </NavLink>
   </li>
 

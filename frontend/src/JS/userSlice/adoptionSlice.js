@@ -1,22 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-
 // إرسال طلب تبنّي
 export const submitAdoptionRequest = createAsyncThunk(
   "adoption/submitAdoptionRequest",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:5000/api/adoption", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Erreur lors de l'envoi");
-      return data;
+      const res = await axios.post("http://localhost:5000/api/adoption", formData);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Erreur lors de l'envoi"
+      );
     }
   }
 );
@@ -26,15 +21,16 @@ export const fetchAdoptionRequests = createAsyncThunk(
   "adoption/fetchAdoptionRequests",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:5000/api/adoption");
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Erreur lors du chargement");
-      return data;
+      const res = await axios.get("http://localhost:5000/api/adoption");
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Erreur lors du chargement"
+      );
     }
   }
 );
+
 // Thunk pour supprimer une demande
 export const deleteAdoptionRequest = createAsyncThunk(
   'adoption/deleteAdoptionRequest',

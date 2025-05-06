@@ -15,7 +15,7 @@ export default function NumScrollDemo() {
 
   const reduxAnimals = useSelector((state) => state.animal?.animalList || []);
 
-  // Options for responsive carousel
+  // carousel pour sera responsive 
   const responsiveOptions = [
     { breakpoint: "1400px", numVisible: 2, numScroll: 1 },
     { breakpoint: "1199px", numVisible: 3, numScroll: 1 },
@@ -23,12 +23,12 @@ export default function NumScrollDemo() {
     { breakpoint: "575px", numVisible: 1, numScroll: 1 },
   ];
 
-  // Fetch animals for Carousel (local use)
+  // Fetch ; récuper les données de serveur animals for Carousel (local use)
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
         const data = await AnimalService.getAnimalsSmall();
-        setLocalAnimals(data.slice(0, 9)); // Limiting to 9 animals
+        setLocalAnimals(data.slice(0, 9)); // Limite de 9 animales
       } catch (error) {
         console.error("Erreur lors de la récupération des animaux :", error);
       }
@@ -37,7 +37,7 @@ export default function NumScrollDemo() {
     fetchAnimals();
   }, []);
 
-  // Fetch animals into Redux store
+  // Fetch animals de la part Redux store
   useEffect(() => {
     dispatch(getanimal());
   }, [dispatch]);

@@ -31,10 +31,7 @@ const UserSchema = new schema({
   postalCode: {
     type: String, 
   },
-  img: {
-    type: String,
-    default: ''
-  }
-  });
+  img: String,
+});
 
 module.exports = mongoose.model("user", UserSchema);

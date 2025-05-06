@@ -37,17 +37,17 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
 
     const handleDelete = () => {
       Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
+        title: "Êtes-vous sûr ?",
+        text: "Action irréversible !",
+        icon: "Attention",
         showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        confirmButtonText: "Confirmer la suppression",
+        cancelButtonText: "Non, annuler !",
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(deleteuser(user._id));
-          Swal.fire("Deleted!", "Your account has been deleted.", "success");
+          Swal.fire("Supprimée!", "Votre compte a été supprimé", "Succès");
           navigate("/login");
           setping(prev => !prev);
         }
@@ -75,7 +75,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
         <div className="form-container">
           <div className="form-row">
             <div className="form-group">
-              <label>Name</label>
+              <label>Nom</label>
               <input
                 type="text"
                 className="form-input"
@@ -85,7 +85,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
               />
             </div>
             <div className="form-group">
-              <label>Lastname</label>
+              <label>Prénom</label>
               <input
                 type="text"
                 className="form-input"
@@ -100,7 +100,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
 
           <div className="form-row">
             <div className="form-group">
-              <label>Email Address</label>
+              <label>Adresse Email</label>
               <input
                 type="email"
                 className="form-input"
@@ -110,7 +110,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
               />
             </div>
             <div className="form-group">
-              <label>Phone Number</label>
+              <label>Numéro de télephone</label>
               <input
                 type="text"
                 className="form-input"
@@ -123,7 +123,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
 
           <div className="form-row">
             <div className="form-group">
-              <label>Location</label>
+              <label>Localisation</label>
               <input
                 type="text"
                 className="form-input"
@@ -135,7 +135,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
               />
             </div>
             <div className="form-group">
-              <label>Postal Code</label>
+              <label>Code Postale</label>
               <input
                 type="text"
                 className="form-input"
@@ -161,11 +161,13 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
               });
             }}
           >
-            Save Changes
+            Enregistrer 
           </button>
+          {user?.category !== "admin" && (
           <button className="btn-delete" onClick={handleDelete}>
-            Delete Account
+            Supprimer le compte
           </button>
+          )}
         </div>
       </div>
     );

@@ -4,10 +4,10 @@ const animalRouter = express.Router();
 const multer = require("multer");
 const path = require("path");
 
-// إعداد مكان تخزين الصور
+// إStockage des photos des animaux lors de l'ajout 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // تأكد أن هذا المجلد موجود
+    cb(null, "uploads/"); 
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -17,12 +17,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
-// ✅ إضافة حيوان جديد
+// L'ajout d'un animal
 animalRouter.post("/add", upload.single("img"), async (req, res) => {
   try {
     const animalData = {
       ...req.body,
-      img: req.file?.filename, // اسم الصورة فقط
+      img: req.file?.filename, 
     };
 
     const newAnimal = new Animal(animalData);
@@ -35,7 +35,7 @@ animalRouter.post("/add", upload.single("img"), async (req, res) => {
 });
 
 
-// ✅ جلب كل الحيوانات
+// Appel au animaux 
 animalRouter.get("/", async (req, res) => {
   try {
     let result = await Animal.find();
@@ -46,7 +46,7 @@ animalRouter.get("/", async (req, res) => {
   }
 });
 
-// ✅ جلب حيوان واحد عبر الـ ID
+// appel un seul animal par ID 
 animalRouter.get("/:id", async (req, res) => {
   try {
     let result = await Animal.findById(req.params.id);
@@ -60,7 +60,7 @@ animalRouter.get("/:id", async (req, res) => {
   }
 });
 
-// ✅ حذف حيوان
+// Supprimer un animal 
 animalRouter.delete("/:id", async (req, res) => {
   try {
     let result = await Animal.findByIdAndDelete(req.params.id);
@@ -74,7 +74,7 @@ animalRouter.delete("/:id", async (req, res) => {
   }
 });
 
-// ✅ تعديل حيوان
+// modifier un animal
 animalRouter.put("/:id", upload.single("img"), async (req, res) => {
   try {
     const updateData = {

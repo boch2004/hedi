@@ -42,12 +42,12 @@ function Login() {
   return (
     <div className="login-page">
       <div className="login-wrapper">
-        <h2 className="login-title">Please Login</h2>
+        <h2 className="login-title">Veuillez vous connecter</h2>
         <form onSubmit={handleLogin}>
           <input
             type="email"
             className="login-input"
-            placeholder="Email Address"
+            placeholder="Adresse e-mail"
             required
             onChange={(e) => setLogin({ ...login, email: e.target.value })}
           />
@@ -55,7 +55,7 @@ function Login() {
             <input
               type={showPassword ? "text" : "password"}
               className="login-input"
-              placeholder="Password"
+              placeholder="Mot de passe"
               required
               onChange={(e) => setLogin({ ...login, password: e.target.value })}
             />
@@ -67,18 +67,17 @@ function Login() {
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-
           </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <label className="login-checkbox">
-            <input type="checkbox" value="remember-me" /> Remember me
+            <input type="checkbox" value="remember-me" /> Rester connecté
           </label>
           <button className="login-button" type="submit">
-            Login
+            Se connecter
           </button>
         </form>
         <p className="login-register">
-          Don't have an account? <Link to="/register">Register now</Link>
+          Vous ne possédez pas de compte ? <Link to="/register">Créer un compte</Link>
         </p>
       </div>
     </div>

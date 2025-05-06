@@ -120,16 +120,16 @@ return (
             </div>
             <div style={styles.column}>
               <label>Race</label>
-          <input
-                  value={edited.race}
-                  onChange={(e) => setEdited({ ...edited, race: e.target.value })}
-                  style={styles.input}
-          />
+              <input
+                value={edited.race}
+                onChange={(e) => setEdited({ ...edited, race: e.target.value })}
+                style={styles.input}
+              />
             </div>
           </div>
 
           <div style={styles.row}>
-          <div style={styles.column}>
+            <div style={styles.column}>
               <label>Type</label>
               <Dropdown
                 value={edited.Type}
@@ -209,7 +209,7 @@ return (
 
 const styles = {
   button: {
-    margin: "5px",
+    margin:"5px",
     padding: "10px 15px",
     backgroundColor: "#007bff",
     color: "white",
@@ -228,13 +228,13 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 100,
-    overflow: "auto", 
-    padding: "20px",  
+    overflow: "auto", // 🟢 يسمح بالتمرير
+    padding: "20px",  // 🟢 يضمن مسافة حتى لو المودال طويل
   },
   modal: {
     backgroundColor: "white",
     padding: "20px",
-    marginTop: "50px",
+    marginTop:"300px",
     borderRadius: "10px",
     width: "100%",
     maxWidth: "600px",
@@ -243,7 +243,6 @@ const styles = {
     gap: "15px",
     boxShadow: "0 0 10px rgba(0,0,0,0.3)",
   },
-  
   row: {
     display: "flex",
     gap: "10px",

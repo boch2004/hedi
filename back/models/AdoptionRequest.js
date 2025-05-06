@@ -4,7 +4,7 @@ const adoptionRequestSchema = new mongoose.Schema({
   name: String,
   email: String,
   reason: String,
-  télephone: String,
+  telephone: String,
   idanimal:String,
   proprietaire:String,
   iduser:String,

@@ -1,4 +1,4 @@
-// post.js pour ajouter des histoires 
+
 
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;

@@ -13,24 +13,24 @@ function Mes_animaux({ ping, setping }) {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
+      title: "Êtes-vous sûr ?",
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: "Attention ",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: "Oui, supprimer !",
+      cancelButtonText: "Non, annuler !",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteanimal(id));
         setping(prev => !prev);
-        Swal.fire("Deleted!", "Your animal has been deleted.", "success");
+        Swal.fire("Supprimé !!", "Votre animal a été supprimé.", "Succès");
       }
     });
   };
   return (
     <>
-      <div style={{ display: "flex", marginTop: 25, flexWrap: "wrap", justifyContent: "center" }}>
+      <div style={{ display: "flex", marginTop: 25, flexWrap: "wrap", justifyContent: "center" }}> 
         {Animals?.filter((el) => el.idanimal === user?._id).length === 0 ? (
           <h2 style={{ color: "#555" }}>Vous n'avez ajouté aucun animal pour le moment.</h2>
         ) : (

@@ -23,7 +23,7 @@ function Histoires({ ping, setping}) {
       {poste.length > 0 ? (
         poste.map((el) => <Cardpost  histoire={el} />)
       ) : (
-        <p>No posts available</p>
+        <p style={{marginTop:50}}>Aucune Histoire</p>
       )}
       </div>
     </div>

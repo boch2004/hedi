@@ -34,8 +34,9 @@ function AdoptModal({ animalId, user_id,proprietaire }) {
     }
 
     const formData = {
+      //automatique
       name: user?.name,
-      télephone: user?.télephone,
+      telephone: user?.phone,
       email: user?.email,
       reason: reason, // On récupère directement depuis le state
       idanimal: animalId,
@@ -70,7 +71,7 @@ function AdoptModal({ animalId, user_id,proprietaire }) {
         onClick={() => {
           if (!user) {
             Swal.fire({
-              icon: "warning",
+              icon: "Attention",
               title: "Vous devez vous connecter d'abord",
               text: "Veuillez vous connecter pour adopter.",
             });
@@ -120,7 +121,6 @@ function AdoptModal({ animalId, user_id,proprietaire }) {
               </div>
 
               {error && <p style={{ color: "red" }}>{error}</p>}
-              {success && <p style={{ color: "green" }}>Votre demande a été envoyée avec succès !</p>}
             </form>
           </div>
         </div>

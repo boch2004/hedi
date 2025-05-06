@@ -13,21 +13,23 @@ function Favorites({ ping, setping }) {
     const favoris = useSelector((state) => state.favoris.favorislist);
     const user = useSelector((state) => state.user.user);
 
+    //le user n'a pas connécté ou n'a pas un compte s'affiche sil click sur favorite 
     const handleClick = (e, el) => {
         if (!user) {
             e.preventDefault();
             Swal.fire({
-                icon: "warning",
-                title: "You must log in first",
-                text: "Something went wrong!",
+                icon: "Attention",
+                title: "Connectez-vous d'abord",
+                text: "Une erreur s'est produite :",
             });
         } else {
             window.scrollTo(0, 0);
         }
     };
 
+
     const handleDelete = (elId, e) => {
-        e.stopPropagation(); // Prevent the link from being followed
+        e.stopPropagation(); 
         dispatch(deletefavoris(elId));
         setping(prev => !prev);
     };
@@ -35,13 +37,14 @@ function Favorites({ ping, setping }) {
     return (
         <div className="favorites-container">
             {favoris && favoris.filter((el) => el.iduser === user?._id).length === 0 ? (
-                <p className="empty-favorites-message">Your favorites list is empty.</p>
+                <p className="empty-favorites-message">Votre liste de favoris est vide.</p>
             ) : (
                 favoris
                     ?.filter((el) => el.iduser === user?._id)
                     .map((el) => (
                         <div
                             className="favorite-item"
+                            //affiche les imag Image mtaa animal ,Nom mtaa animal ,  Bouton pour supprimer
                             key={el._id}
                             style={{
                                 transition: "all 0.5s ease-in-out",

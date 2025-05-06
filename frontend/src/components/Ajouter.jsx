@@ -49,7 +49,7 @@ function Ajouter() {
     proprietaire:user?.name,
   });
 
-  // حساب العمر بناءً على التاريخ المحدد من Calendar
+  // L'age selon la date fixé dans le canldrier 
   const calculateAge = (birthDate) => {
     const today = new Date();
     const birth = new Date(birthDate);
@@ -84,6 +84,7 @@ function Ajouter() {
   };
 
   const isFormValid = () => {
+    //champ valide cad obligatoire et bien écrit 
     return (
       newanimal.img &&
       newanimal.name &&
@@ -202,8 +203,8 @@ function Ajouter() {
                   const age = calculateAge(e.value);
                   setnewanimal({
                     ...newanimal,
-                    birthDate: e.value, // التاريخ
-                    age: age, // العمر المحسوب كنص
+                    birthDate: e.value, 
+                    age: age, //L'age comme un text 
                   });
                 }}
                 dateFormat="dd/mm/yy"
@@ -278,6 +279,7 @@ function Ajouter() {
               onClick={() => {
                 if (isFormValid()) {
                   const formData = new FormData();
+                  //champ obligatoire ce passe entre au data
                   formData.append("name", newanimal.name);
                   formData.append("img", newanimal.img);
                   formData.append("description", newanimal.description);

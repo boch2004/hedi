@@ -4,11 +4,11 @@ const AdoptionRequest = require('../models/AdoptionRequest');
 
 router.post('/', async (req, res) => {
   try {
-    const { name, télephone, email, reason, idanimal, iduser, proprietaire,myid } = req.body;
+    const { name, telephone, email, reason, idanimal, iduser, proprietaire,myid } = req.body;
 
     const newRequest = new AdoptionRequest({
       name,
-      télephone,
+      telephone,
       email,
       reason,
       idanimal,
@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 });
+
 router.get('/', async (req, res) => {
   try {
     const requests = await AdoptionRequest.find().sort({ createdAt: -1 });

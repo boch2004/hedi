@@ -97,7 +97,7 @@ router.post("/login", loginRules(), validation, async (req, res) => {
     res
       .status(200)
       .send({ user: searchedUser, msg: "success", token: `bearer ${token}` });
-      //l'ultilisateur a msg: "success" si login marche sinon token: JWT token presente à chaque requete , et se s'écrit au format bearer 
+    //l'ultilisateur a msg: "success" si login marche sinon token: JWT token presente à chaque requete , et se s'écrit au format bearer 
   } catch (error) {
     res.status(500).send({ msg: "Can not get the user" });
   }
@@ -112,11 +112,11 @@ router.get("/current", isAuth(), (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
 
-      let result = await User.findByIdAndDelete(req.params.id);
-      //supprime le user de la BD
-      res.send({ msg: "user is deleted" })
+    let result = await User.findByIdAndDelete(req.params.id);
+    //supprime le user de la BD
+    res.send({ msg: "user is deleted" })
   } catch (error) {
-      console.log(error)
+    console.log(error)
   }
 })
 
@@ -141,10 +141,10 @@ router.put("/users/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
 
-      let result = await User.find();
-      res.send({ users: result, msg: "all users" })
+    let result = await User.find();
+    res.send({ users: result, msg: "all users" })
   } catch (error) {
-      console.log(error)
+    console.log(error)
   }
 })
 // ✅ Get user by ID

@@ -10,7 +10,7 @@ function Les_animaux({ping, setping}) {
         {Animals.length > 0 ? (
           Animals.map((el) => <Cardanimal key={el.id} animal={el} ping={ping} setping={setping} />)
         ) : (
-          <p>No animals available</p>
+        <p> Aucun animal disponible</p>
         )}
       </div>
     </div>

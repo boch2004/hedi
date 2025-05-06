@@ -21,16 +21,16 @@ export const userlogin = createAsyncThunk("user/login", async (user, { rejectWit
   }
 });
 
-export const userCurrent = createAsyncThunk("user/current", async (_, { rejectWithValue }) => {
+export const userCurrent = createAsyncThunk("user/current", async () => {
   try {
     let response = await axios.get("http://localhost:5000/user/current", {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     });
-    return response;
+    return await response;
   } catch (error) {
-    return rejectWithValue(error.response?.data || { msg: "Unauthorized" });
+    console.log(error);
   }
 });
 
@@ -48,23 +48,23 @@ export const deleteuser = createAsyncThunk("user/delete", async(id)=>{
 export const edituser = createAsyncThunk("user/edit", async ({ id, edited }) => {
   try {
     const result = await axios.put(`http://localhost:5000/user/users/${id}`, edited);
-    return result.data; // لازم ترجع البيانات مش الـ Promise
-  } catch (error) {
-    console.log(error);
-    throw error; // نرمي الخطأ باش نجم نتصرف فيه في الـ rejected
-  }
-});
-
-export const getusers = createAsyncThunk("user/get", async () => {
-  try {
-    const result = await axios.get("http://localhost:5000/user/");
-    return result.data;
+    return result.data; 
   } catch (error) {
     console.log(error);
     throw error;
   }
 });
 
+
+export const getusers = createAsyncThunk("user/get", async () => {
+  try {
+      let result = axios.get("http://localhost:5000/user/")
+      console.log("Response:", result);
+      return result
+  } catch (error) {
+      console.log(error)
+  }
+})
 export const uploadAndEditUserImage = createAsyncThunk(
   "user/uploadImage",
   async ({ imageFile }) => {
@@ -73,12 +73,10 @@ export const uploadAndEditUserImage = createAsyncThunk(
 
     const uploadRes = await axios.post("http://localhost:5000/api/upload", formData);
     const imageUrl = uploadRes.data.url;
-    console.log("Upload response:", uploadRes.data); // تأكد من أن الـ URL يجي موجود هنا
-
-    return { img: imageUrl }; // نرجعو فقط الصورة
+    console.log("Upload response:", uploadRes.data); 
+    return { img: imageUrl };
   }
 );
-
 export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (id, { rejectWithValue }) => {
@@ -90,7 +88,6 @@ export const fetchUserById = createAsyncThunk(
     }
   }
 );
-
 const initialState = {
   user: null,
   status: null,
@@ -155,8 +152,8 @@ export const userSlice = createSlice({
       .addCase(edituser.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(edituser.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
+      .addCase(edituser.fulfilled, (state) => {
+        state.status = "successsss";
       })
       .addCase(edituser.rejected, (state) => {
         state.status = "fail";
@@ -175,12 +172,11 @@ export const userSlice = createSlice({
       })
       .addCase(uploadAndEditUserImage.fulfilled, (state, action) => {
         if (state.user) state.user.img = action.payload.img;
-      })      
+      })
       .addCase(uploadAndEditUserImage.rejected, (state) => {
         state.status = "fail";
       })
       ;
-      
   },
 })  
 

@@ -41,7 +41,7 @@ function ColorSchemesExample() {
               Histoires
             </Nav.Link>
             <Nav.Link as={Link} to="/Adoption" className="roboto text-white">
-              S'adopter
+              Adopter
             </Nav.Link>
             {user && (
              <Nav.Link as={Link} to="/Ajouter" className="roboto text-white">
@@ -61,8 +61,7 @@ function ColorSchemesExample() {
              style={{width:35, height:35,}}
             src={
               user?.img ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnBLMyaL-5gh0nhP-vircgmtkHER58KHoMAw&s"
-            }
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnBLMyaL-5gh0nhP-vircgmtkHER58KHoMAw&s"}
             alt="Profile"
             className="profile-img"
           />

@@ -50,7 +50,7 @@ function Register() {
           <input
             type="text"
             className="login-input"
-            placeholder="Prénom"
+            placeholder="Nom"
             required
             onChange={(e) =>
               setRegister({ ...register, name: e.target.value })
@@ -59,7 +59,7 @@ function Register() {
           <input
             type="text"
             className="login-input"
-            placeholder="Nom de famille"
+            placeholder="Prénom"
             required
             onChange={(e) =>
               setRegister({ ...register, lastname: e.target.value })

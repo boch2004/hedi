@@ -2,7 +2,7 @@ const express = require("express");
 const Favoris = require("../models/favoris");
 const favorisRouter = express.Router();
 
-// Add favoris
+// Ajouter favoris
 favorisRouter.post("/add", async (req, res) => {
     try {
         let newfavoris = new Favoris(req.body);
@@ -14,7 +14,7 @@ favorisRouter.post("/add", async (req, res) => {
     }
 });
 
-// Get all favoris
+// appel au favoris
 favorisRouter.get("/", async (req, res) => {
     try {
         let result = await Favoris.find();
@@ -53,7 +53,7 @@ favorisRouter.put("/:id", async (req, res) => {
         let result = await Favoris.findByIdAndUpdate(
             { _id: req.params.id },
             { $set: { ...req.body } },
-            { new: true } // ترجع النسخة الجديدة بعد التحديث
+            { new: true } 
         );
         res.status(200).send({ updatedFavoris: result, msg: "favoris is updated" });
     } catch (error) {
