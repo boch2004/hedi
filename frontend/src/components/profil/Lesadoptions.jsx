@@ -20,7 +20,6 @@ function Lesadoptions() {
       r.iduser === user?._id &&
       animals.find((a) => a._id === r.idanimal)?.adoption !== false
   );
-  
 
   useEffect(() => {
     dispatch(fetchAdoptionRequests());
@@ -110,12 +109,15 @@ function Lesadoptions() {
                   <Link to={`/animaux/${r.idanimal}`}>{r.idanimal}</Link>
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  <span
-                    onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
-                    style={{ fontSize: 26, cursor: "pointer" }}
-                  >
-                    ✅
-                  </span>
+                  {animal?.adoption === undefined ||
+                  animal?.adoption === false ? (
+                    <span
+                      onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
+                      style={{ fontSize: 26, cursor: "pointer" }}
+                    >
+                      ✅
+                    </span>
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -124,25 +126,28 @@ function Lesadoptions() {
                     justifyContent: "center",
                   }}
                 >
-                  <span
-                    onClick={() => handleRefuse(r.idanimal, r._id)}
-                    style={{
-                      marginTop: 13,
-                      width: "27px",
-                      height: "27px",
-                      backgroundColor: "#ef4444",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <FaTimes //icons
+                  {animal?.adoption === undefined ||
+                  animal?.adoption === false ? (
+                    <span
+                      onClick={() => handleRefuse(r.idanimal, r._id)}
                       style={{
-                        color: "white",
-                        fontSize: "20px",
-                        paddingRight: 8,
+                        marginTop: 13,
+                        width: "27px",
+                        height: "27px",
+                        backgroundColor: "#ef4444",
+                        borderRadius: "5px",
+                        cursor: "pointer",
                       }}
-                    />
-                  </span>
+                    >
+                      <FaTimes //icons
+                        style={{
+                          color: "white",
+                          fontSize: "20px",
+                          paddingRight: 8,
+                        }}
+                      />
+                    </span>
+                  ) : null}
                 </td>
               </tr>
             );
