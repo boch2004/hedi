@@ -32,14 +32,14 @@ function Modal({ animal, ping, setping }) {
     <>
     <div style={{display:"flex",justifyContent:"center"}}>
       <button onClick={handleShow} style={styles.button} disabled={show}>
-        Ajouter mon histoire
+        Ajouter mon expérience
       </button>
       </div>
 
       {show && (
         <div className="modalinput" style={styles.modalOverlay} onClick={handleClose}>
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2>Ajouter une Histoire</h2>
+            <h2>Ajouter une Expérience</h2>
             <label>Titre</label>
             <input
               type="text"

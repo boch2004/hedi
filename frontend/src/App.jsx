@@ -12,7 +12,7 @@ import PrivateRoute from "./Routes/PrivateRouter";
 import Pronous from "./components/Pronous";
 import Adoption from "./components/Adoption";
 import Ajouter from "./components/Ajouter";
-import Histoires from "./components/Histoires";
+import Expérience from "./components/Expérience";
 import ProfileSection from "./components/profil/ProfileSection";
 import Info from "./components/profil/Info";
 import Les_utlisateurs from "./components/profil/Les_utlisateurs";
@@ -57,7 +57,7 @@ function App() {
         <Route path="/Nous" element={<Pronous />} />
         <Route path="/Conseil" element={<Conseil />} />
         <Route path="/Ajouter" element={<Ajouter />} />
-        <Route path="/histoire" element={<Histoires ping={ping} setping={setping} />} />        
+        <Route path="/Expérience" element={<Expérience ping={ping} setping={setping} />} />        
         <Route path="/Adoption" element={<Adoption />} />
         <Route path="/animaux/:id" element={<Animaldetails  ping={ping} setping={setping}  />} />
         <Route element={<PrivateRoute />}>
@@ -67,7 +67,7 @@ function App() {
             <Route path="Les_utlisateurs" element={<Les_utlisateurs ping={ping} setping={setping}   />} />
             <Route path="Les_animaux" element={<Les_animaux ping={ping} setping={setping}   />} />            
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
-            <Route path="Histoiress" element={<Histoires ping={ping} setping={setping} />} />
+            <Route path="Expériences" element={<Expérience ping={ping} setping={setping} />} />
             <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
             <Route path="Lesadoptions" element={<AdoptionDashboard />} />
             <Route path="adoptions" element={<Lesadoptions />} />

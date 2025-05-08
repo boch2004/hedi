@@ -45,3 +45,4 @@ export const AnimalService = {
       return this.getAnimalsWithOrdersData();
   }
 };
+export default AnimalService;

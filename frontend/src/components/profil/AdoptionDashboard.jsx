@@ -5,7 +5,6 @@ import {
   fetchAdoptionRequests,
 } from "../../JS/userSlice/adoptionSlice";
 import { Link } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
 import { editanimal } from "../../JS/userSlice/animalSlice";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -70,7 +69,6 @@ function AdoptionDashboard() {
               <th>Animal ID</th>
               <th>propriétaire</th>
               <th style={{ textAlign: "center" }}>Adopter ? </th>
-              <th style={{ textAlign: "center" }}>Refuser l'adoption</th>
             </tr>
           </thead>
           <tbody>
@@ -105,33 +103,6 @@ function AdoptionDashboard() {
                         : animal?.adoption === false
                         ? "Refusée"
                         : "En attente"}
-                    </span>
-                  </td>
-                  <td
-                    style={{
-                      textAlign: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <span
-                      onClick={() => handleDelete(r._id)}
-                      style={{
-                        marginTop: 13,
-                        width: "27px",
-                        height: "27px",
-                        backgroundColor: "#ef4444",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <FaTimes
-                        style={{
-                          color: "white",
-                          fontSize: "20px",
-                          paddingRight: 8,
-                        }}
-                      />
                     </span>
                   </td>
                 </tr>

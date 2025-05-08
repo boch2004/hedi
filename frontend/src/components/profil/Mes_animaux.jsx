@@ -10,7 +10,6 @@ function Mes_animaux({ ping, setping }) {
   const user = useSelector((state) => state.user.user);
   const Animals = useSelector((state) => state.animal?.animalList || []);
   const dispatch = useDispatch();
-
   const handleDelete = (id) => {
     Swal.fire({
       title: "Êtes-vous sûr ?",
@@ -30,6 +29,13 @@ function Mes_animaux({ ping, setping }) {
   };
   return (
     <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Link to={"/Ajouter"}>
+        <button style={styles.button}>
+          Ajouter un animal
+        </button>
+        </Link>
+      </div>
       <div style={{ display: "flex", marginTop: 25, flexWrap: "wrap", justifyContent: "center" }}> 
         {Animals?.filter((el) => el.idanimal === user?._id).length === 0 ? (
           <h2 style={{ color: "#555" }}>Vous n'avez ajouté aucun animal pour le moment.</h2>
@@ -83,6 +89,17 @@ function Mes_animaux({ ping, setping }) {
     </>
 
   );
+} const styles = {
+  button: {
+    padding: "10px 15px",
+    backgroundColor: "#6366f1",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    margin: "5px",
+    transition: "0.3s",
+  },
 }
 
 export default Mes_animaux;

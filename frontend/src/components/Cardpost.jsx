@@ -5,7 +5,7 @@ import "./Cardpost.css";
 import Swal from "sweetalert2";
 
 
-function Cardpost({ histoire }) {
+function Cardpost({ Expérience }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -31,8 +31,8 @@ function Cardpost({ histoire }) {
   return (
     <>
 <div className="nakcha">
-        {(user?._id === histoire?.userid || user?.category === "admin") && (
-          // user le owner de histoire 
+        {(user?._id === Expérience?.userid || user?.category === "admin") && (
+          // user le owner de Expérience 
           <button
             style={{
               border: "none",
@@ -43,16 +43,16 @@ function Cardpost({ histoire }) {
               color: "red",
               cursor: "pointer",
             }}
-            onClick={() => handleDelete(histoire._id)}
+            onClick={() => handleDelete(Expérience._id)}
           >
             X
           </button>
         )}
 
   <div>
-    <h4 style={{margin:25,color:"black"}}>{histoire?.title}</h4>
-    <p style={{margin:20,color:"#6c757d"}}>{histoire?.content}</p>
-    <p style={{position:"absolute",bottom:0,right:10,color:"#6c757d"}}>{histoire?.Crea}</p>
+    <h4 style={{margin:25,color:"black"}}>{Expérience?.title}</h4>
+    <p style={{margin:20,color:"#6c757d"}}>{Expérience?.content}</p>
+    <p style={{position:"absolute",bottom:0,right:10,color:"#6c757d"}}>{Expérience?.Crea}</p>
   </div>
 </div>
 

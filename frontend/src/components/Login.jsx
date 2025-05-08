@@ -29,7 +29,7 @@ function Login() {
       const userRole = result.payload.user?.category;
 
       if (userRole === "admin") {
-        navigate("/profil");
+        navigate("/profil/Lesadoptions");
       } else {
         navigate("/");
       }

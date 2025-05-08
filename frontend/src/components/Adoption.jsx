@@ -8,14 +8,15 @@ import Cardanimal from "./Cardanimal";
 import { Link } from "react-router-dom";
 
 export default function NumScrollDemo() {
+  const user = useSelector((state) => state.user.userlist);
   const dispatch = useDispatch();
 
-  const [localAnimals, setLocalAnimals] = useState([]);
+  const [localAnimals, setLocalAnimals] = useState([]); // local animals
   const [showAll, setShowAll] = useState(false);
 
   const reduxAnimals = useSelector((state) => state.animal?.animalList || []);
 
-  // carousel pour sera responsive 
+  // Options for responsive carousel
   const responsiveOptions = [
     { breakpoint: "1400px", numVisible: 2, numScroll: 1 },
     { breakpoint: "1199px", numVisible: 3, numScroll: 1 },
@@ -23,12 +24,12 @@ export default function NumScrollDemo() {
     { breakpoint: "575px", numVisible: 1, numScroll: 1 },
   ];
 
-  // Fetch ; récuper les données de serveur animals for Carousel (local use)
+  // Fetch animals for Carousel (local use)
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
         const data = await AnimalService.getAnimalsSmall();
-        setLocalAnimals(data.slice(0, 9)); // Limite de 9 animales
+        setLocalAnimals(data.slice(0, 9)); // Limiting to 9 animals
       } catch (error) {
         console.error("Erreur lors de la récupération des animaux :", error);
       }
@@ -37,7 +38,7 @@ export default function NumScrollDemo() {
     fetchAnimals();
   }, []);
 
-  // Fetch animals de la part Redux store
+  // Fetch animals into Redux store
   useEffect(() => {
     dispatch(getanimal());
   }, [dispatch]);
@@ -62,21 +63,27 @@ export default function NumScrollDemo() {
       </h6>
       <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
         <Link to={`/animaux/${animal._id}`}>
-          <button className="info-button" style={{height:50,padding:10}}>Plus d'informations</button>
+          <button className="info-button" style={{ height: 50, padding: 10 }}>
+            Plus d'informations
+          </button>
         </Link>
       </div>
     </div>
   );
 
-  // Select animals to display in Cards
-  const visibleAnimals = showAll ? reduxAnimals : reduxAnimals.slice(0, 0);
+  // Filtered animals from Redux based on user
+  const filteredAnimals = reduxAnimals.filter((animal) =>
+    user.some((u) => u._id === animal.idanimal)
+  );
+
+  const visibleAnimals = showAll ? filteredAnimals : filteredAnimals.slice(0, 9);
 
   return (
     <>
       {/* Carousel Section */}
       <div className="card" style={{ padding: "0 200px", background: "#efeff1" }}>
         <Carousel
-          value={localAnimals}
+          value={visibleAnimals}  // Here use visibleAnimals instead of localAnimals
           itemTemplate={animalTemplate}
           numScroll={1}
           numVisible={4}

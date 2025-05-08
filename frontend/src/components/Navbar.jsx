@@ -37,17 +37,12 @@ function ColorSchemesExample() {
             <Nav.Link as={Link} to="/conseil" className="roboto text-white">
               Conseils
             </Nav.Link>
-            <Nav.Link as={Link} to="/histoire" className="roboto text-white">
-              Histoires
+            <Nav.Link as={Link} to="/Expérience" className="roboto text-white">
+              Expérience
             </Nav.Link>
             <Nav.Link as={Link} to="/Adoption" className="roboto text-white">
               Adopter
             </Nav.Link>
-            {user && (
-             <Nav.Link as={Link} to="/Ajouter" className="roboto text-white">
-              Ajouter un animal 
-            </Nav.Link>
-            )}
             {!user && (
               <Nav.Link as={Link} to="/Login" className="roboto text-white">
                 Se connecter
@@ -56,9 +51,9 @@ function ColorSchemesExample() {
           </Nav>
         </Navbar.Collapse>
         {user && (
-          <Nav.Link as={Link} to="/profil" className="roboto text-white">
+          <Nav.Link as={Link} to="/profil/info" className="roboto text-white">
              <img
-             style={{width:35, height:35,}}
+             style={{width:35, height:35,border:"none"}}
             src={
               user?.img ||
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnBLMyaL-5gh0nhP-vircgmtkHER58KHoMAw&s"}

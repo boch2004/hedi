@@ -1,20 +1,29 @@
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Cardanimal from '../Cardanimal';
 
-function Les_animaux({ping, setping}) {
-    const Animals = useSelector((state) => state.animal?.animalList || []);
+function Les_animaux({ ping, setping }) {
+  const Animals = useSelector((state) => state.animal?.animalList || []);
+  const users = useSelector((state) => state.user?.userlist || []);
+
+  // نعملو فلترة للحيوانات حسب وجود المستخدم
+  const filteredAnimals = Animals.filter((animal) =>
+    users.some((user) => user._id === animal.idanimal)
+  );
+
   return (
     <div>
-        <div className="card-animal" >
-        {Animals.length > 0 ? (
-          Animals.map((el) => <Cardanimal key={el.id} animal={el} ping={ping} setping={setping} />)
+      <div className="card-animal">
+        {filteredAnimals.length > 0 ? (
+          filteredAnimals.map((el) => (
+            <Cardanimal key={el._id} animal={el} ping={ping} setping={setping} />
+          ))
         ) : (
-        <p> Aucun animal disponible</p>
+          <p>Aucun animal disponible</p>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Les_animaux
+export default Les_animaux;

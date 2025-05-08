@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getpost } from "../JS/userSlice/postSlice";
 import Modal from "./Modal";
 
-function Histoires({ ping, setping}) {
+function Expérience({ ping, setping}) {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const poste = useSelector((state) => state.post?.postlist || []);
@@ -21,13 +21,13 @@ function Histoires({ ping, setping}) {
       )}
       <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around",}}>
       {poste.length > 0 ? (
-        poste.map((el) => <Cardpost  histoire={el} />)
+          poste.map((el) => <Cardpost Expérience={el} />)
       ) : (
-        <p style={{marginTop:50}}>Aucune Histoire</p>
+            <p style={{ marginTop: 50 }}>Aucune Expérience</p>
       )}
       </div>
     </div>
   );
 }
 
-export default Histoires;
+export default Expérience;

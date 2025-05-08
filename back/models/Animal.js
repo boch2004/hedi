@@ -19,6 +19,7 @@ const animalsSchema = new schema({
   Couleur: String,
   Activite:String,
   proprietaire:String,
+  vaccin: String,
 });
 
 const Animals = mongoose.model("Animals", animalsSchema);

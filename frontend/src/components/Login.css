@@ -35,6 +35,14 @@
   border-radius: 5px;
   font-size: 16px;
 }
+.login-inputt {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 0px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
 
 /* Bouton de connexion */
 .login-button {
@@ -88,6 +96,12 @@
 }
 .password-container{
   height: 100px;
+}
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
 

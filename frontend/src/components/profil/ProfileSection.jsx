@@ -55,8 +55,29 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
     };
 
     const handleSaveChanges = () => {
+      const requiredFields = ["name", "lastname", "email", "phone", "location", "postalCode"];
+      for (let field of requiredFields) {
+        if (!edited[field]) {
+          Swal.fire({
+            icon: "warning",
+            title: "Champ manquant",
+            text: `Veuillez remplir le champ : ${field}`,
+          });
+          return;
+        }
+      }
+
       dispatch(edituser({ id: user._id, edited }));
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Vos modifications ont été enregistrées",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setping((prev) => !prev);
     };
+
 
     return (
       <div className="interface-profile">
@@ -148,21 +169,10 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
             </div>
           </div>
 
-          <button
-            className="btn-save"
-            onClick={() => {
-              handleSaveChanges();
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your changes have been saved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }}
-          >
-            Enregistrer 
+          <button className="btn-save" onClick={handleSaveChanges}>
+            Enregistrer
           </button>
+
           {user?.category !== "admin" && (
           <button className="btn-delete" onClick={handleDelete}>
             Supprimer le compte

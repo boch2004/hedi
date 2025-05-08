@@ -3,20 +3,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { addanimal } from "../JS/userSlice/animalSlice";
 import Swal from "sweetalert2";
 import { Calendar } from "primereact/calendar";
-import "./Ajouter.css";
 import { Dropdown } from "primereact/dropdown";
+import "./Ajouter.css";
 
 function Ajouter() {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
+  const [newanimal, setnewanimal] = useState({
+    name: "",
+    img: "",
+    description: "",
+    race: "",
+    Type: "",
+    age: "",
+    birthDate: null,
+    gender: "",
+    vaccin:"",
+    Activite: "",
+    Couleur: "",
+    location: "",
+    remarque: "",
+    idanimal: user?._id,
+    proprietaire: user?.name,
+  });
+
+  const dispatch = useDispatch();
+  const animals = useSelector((state) => state.animal?.animalList || []);
 
   const genderOptions = [
     { label: "Mâle", value: "Mâle" },
     { label: "Femelle", value: "Femelle" },
   ];
+  const vaccinOptions = [
+    { label: "Oui", value: "Oui" },
+    { label: "No", value: "No" },
+  ];
 
   const TypeOptions = [
-    { label: "Chats",value: "Chats" },
+    { label: "Chats", value: "Chats" },
     { label: "Chiens", value: "Chiens" },
     { label: "Petits Mammifères", value: "Petits Mammifères" },
     { label: "Oiseaux", value: "Oiseaux" },
@@ -32,24 +56,6 @@ function Ajouter() {
     { label: "Indépendant", value: "Indépendant" },
   ];
 
-  const [newanimal, setnewanimal] = useState({
-    name: "",
-    img: "",
-    description: "",
-    race: "",
-    Type:"",
-    age: "",
-    birthDate: null,
-    gender: "",
-    Activite: "",
-    Couleur: "",
-    location: "",
-    remarque: "",
-    idanimal: user?._id,
-    proprietaire:user?.name,
-  });
-
-  // L'age selon la date fixé dans le canldrier 
   const calculateAge = (birthDate) => {
     const today = new Date();
     const birth = new Date(birthDate);
@@ -84,7 +90,6 @@ function Ajouter() {
   };
 
   const isFormValid = () => {
-    //champ valide cad obligatoire et bien écrit 
     return (
       newanimal.img &&
       newanimal.name &&
@@ -92,6 +97,7 @@ function Ajouter() {
       newanimal.race &&
       newanimal.age &&
       newanimal.gender &&
+      newanimal.vaccin &&
       newanimal.Activite &&
       newanimal.Couleur &&
       newanimal.Type &&
@@ -110,7 +116,7 @@ function Ajouter() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             width: "50%",
-            height: "126vh",
+            height: "1000px",
           }}
         ></div>
 
@@ -124,12 +130,13 @@ function Ajouter() {
             flexDirection: "column",
             justifyContent: "center",
             padding: 50,
-            marginTop: 250,
+            marginTop: 200,
           }}
           className="inputt"
         >
           <h1>Ajouter un animal</h1>
 
+          {/* Nom et Image */}
           <div style={{ display: "flex", gap: "10px" }}>
             <div style={{ flex: 1 }}>
               <h5>
@@ -157,6 +164,7 @@ function Ajouter() {
             </div>
           </div>
 
+          {/* Description */}
           <h5>
             Description<span>*</span>
           </h5>
@@ -167,6 +175,7 @@ function Ajouter() {
             }
           />
 
+          {/* Type et Race */}
           <div style={{ display: "flex", gap: "10px" }}>
             <div style={{ flex: 1 }}>
               <h5>
@@ -203,8 +212,8 @@ function Ajouter() {
                   const age = calculateAge(e.value);
                   setnewanimal({
                     ...newanimal,
-                    birthDate: e.value, 
-                    age: age, //L'age comme un text 
+                    birthDate: e.value,
+                    age: age,
                   });
                 }}
                 dateFormat="dd/mm/yy"
@@ -213,6 +222,7 @@ function Ajouter() {
             </div>
           </div>
 
+          {/* Sexe et Activité */}
           <div style={{ display: "flex", gap: "10px" }}>
             <div style={{ flex: 1 }}>
               <h5>
@@ -230,6 +240,20 @@ function Ajouter() {
             </div>
             <div style={{ flex: 1 }}>
               <h5>
+                Vaccin<span>*</span>
+              </h5>
+              <Dropdown
+                value={newanimal.vaccin}
+                options={vaccinOptions}
+                onChange={(e) =>
+                  setnewanimal({ ...newanimal, vaccin: e.value })
+                }
+                placeholder="Choix"
+                className="p-inputtext-sm"
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h5>
                 Activite<span>*</span>
               </h5>
               <Dropdown
@@ -238,12 +262,13 @@ function Ajouter() {
                 onChange={(e) =>
                   setnewanimal({ ...newanimal, Activite: e.value })
                 }
-                placeholder="Choisir une activite"
+                placeholder="Choisir une activité"
                 className="p-inputtext-sm"
               />
             </div>
           </div>
 
+          {/* Couleur, Lieu, Remarque */}
           <h5>
             Couleur<span>*</span>
           </h5>
@@ -274,37 +299,11 @@ function Ajouter() {
             }
           />
 
+          {/* Validation et Enregistrement */}
           <div className="wrapper">
             <a
               onClick={() => {
-                if (isFormValid()) {
-                  const formData = new FormData();
-                  //champ obligatoire ce passe entre au data
-                  formData.append("name", newanimal.name);
-                  formData.append("img", newanimal.img);
-                  formData.append("description", newanimal.description);
-                  formData.append("race", newanimal.race);
-                  formData.append("Type", newanimal.Type);
-                  formData.append("gender", newanimal.gender);
-                  formData.append("location", newanimal.location);
-                  formData.append("remarque", newanimal.remarque);
-                  formData.append("Couleur", newanimal.Couleur);
-                  formData.append("Activite", newanimal.Activite);
-                  formData.append("age", newanimal.age);
-                  formData.append("idanimal", newanimal.idanimal);
-                  formData.append("proprietaire", newanimal.proprietaire);
-
-
-                  dispatch(addanimal(formData));
-
-                  Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "L'animal a été ajouté avec succès",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                } else {
+                if (!isFormValid()) {
                   Swal.fire({
                     position: "center",
                     icon: "error",
@@ -312,7 +311,60 @@ function Ajouter() {
                     showConfirmButton: false,
                     timer: 1500,
                   });
+                  return;
                 }
+
+                const isDuplicateAnimal = animals.some(
+                  (animal) =>
+                    animal.name.trim().toLowerCase() ===
+                    newanimal.name.trim().toLowerCase() &&
+                    animal.race.trim().toLowerCase() ===
+                    newanimal.race.trim().toLowerCase() &&
+                    animal.Type.trim().toLowerCase() ===
+                    newanimal.Type.trim().toLowerCase() &&
+                    animal.location.trim().toLowerCase() ===
+                    newanimal.location.trim().toLowerCase() &&
+                    animal.age.trim().toLowerCase() ===
+                    newanimal.age.trim().toLowerCase() 
+                );
+
+                if (isDuplicateAnimal) {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Cet animal existe déjà",
+                    text: "Un animal avec le même nom, race et type est déjà ajouté.",
+                    timer: 2000,
+                    showConfirmButton: false,
+                  });
+                  return;
+                }
+
+                const formData = new FormData();
+                formData.append("name", newanimal.name);
+                formData.append("img", newanimal.img);
+                formData.append("description", newanimal.description);
+                formData.append("race", newanimal.race);
+                formData.append("Type", newanimal.Type);
+                formData.append("gender", newanimal.gender);
+                formData.append("vaccin", newanimal.vaccin);
+                formData.append("location", newanimal.location);
+                formData.append("remarque", newanimal.remarque);
+                formData.append("Couleur", newanimal.Couleur);
+                formData.append("Activite", newanimal.Activite);
+                formData.append("age", newanimal.age);
+                formData.append("birthDate", newanimal.birthDate); // Ajout de la date de naissance
+                formData.append("idanimal", newanimal.idanimal);
+                formData.append("proprietaire", newanimal.proprietaire);
+
+                dispatch(addanimal(formData));
+
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "L'animal a été ajouté avec succès",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
               }}
             >
               <span>Enregistrer</span>

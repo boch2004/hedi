@@ -55,8 +55,9 @@ router.post("/register", registerRules(), validation, async (req, res) => {
       expiresIn: 3600,
     });
 
+    // التعديل هنا
     res.status(200).send({
-      newUserToken: savedUser,
+      newUserToken: token,  // إرسال التوكن بدلاً من الكائن savedUser
       msg: "Utilisateur enregistré avec succès.",
       token: `bearer ${token}`,
     });
@@ -65,6 +66,7 @@ router.post("/register", registerRules(), validation, async (req, res) => {
     res.status(500).send({ msg: "Erreur lors de l'enregistrement." });
   }
 });
+
 
 // Le login
 router.post("/login", loginRules(), validation, async (req, res) => {

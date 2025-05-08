@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./UserProfile.css";
-import "./Footer.css";
+import "./Icon.css";
 import { deleteuser, edituser, logout } from "../JS/userSlice/userSlice";
 import { NavLink } from "react-router-dom";
 import { GiScrollUnfurled } from 'react-icons/gi';
@@ -36,31 +36,8 @@ const Profil = () => {
     }
   }, [user]);
 
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(deleteuser(user._id));
-        Swal.fire("Deleted!", "Your account has been deleted.", "success");
-        navigate("/login");
-      }
-    });
-  };
-
-  const handleSaveChanges = () => {
-    dispatch(edituser({ id: user._id, edited }));
-  };
-
   return (
     <div className="user-profile">
-      {/* Sidebar */}
       <div className="sidebar">
         <ul className="nav-list">
           {user?.category === "user" && (
@@ -117,12 +94,12 @@ const Profil = () => {
    {user?.category === "admin" && (
     <li className="nav-item">
       <NavLink
-                to="Histoiress"
+                to="Expériences"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
         }
       >
-                <GiScrollUnfurled className="icon" /> <h6>Histoires</h6>
+                <GiScrollUnfurled className="icon" /> <h6>Expérience</h6>
       </NavLink>
     </li>
   )}
@@ -175,17 +152,6 @@ const Profil = () => {
     </li>
   )}
 
-
-  <li className="nav-item">
-    <NavLink
-      to=""
-      className={({ isActive }) =>
-        isActive ? "nav-link active" : "nav-link"
-      }
-    >
-      <FaCog className="icon" /> <h6>Paramètres</h6>
-    </NavLink>
-  </li>
 
   <li className="nav-item logout">
     <button
