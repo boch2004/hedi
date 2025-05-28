@@ -9,7 +9,7 @@ import { Toast } from "primereact/toast";
 function Modifier({ animal, ping, setping }) {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
-  const toast = useRef(null); // 👉 Toast ref
+  const toast = useRef(null); 
 
 
   const typeOptions = [
@@ -39,7 +39,7 @@ function Modifier({ animal, ping, setping }) {
   ];
 
   const [edited, setEdited] = useState({});
-
+//afficher les infos précidente 
   useEffect(() => {
     if (animal) {
       const parsedDate = animal.birthDate ? new Date(animal.birthDate) : null;

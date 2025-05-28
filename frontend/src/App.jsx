@@ -28,6 +28,8 @@ import { getfavoris } from "./JS/userSlice/favorisslice";
 import AdoptionDashboard from "./components/profil/AdoptionDashboard";
 import Lesadoptions from "./components/profil/Lesadoptions";
 import Mes_demandes from "./components/profil/Mes_demandes";
+import Modal from "./components/Modal";
+import Mes_expériences from "./components/profil/Mes_expériences";
 
 
 
@@ -69,9 +71,12 @@ function App() {
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
             <Route path="Expériences" element={<Expérience ping={ping} setping={setping} />} />
             <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
+            <Route path="Ajouterexpérience" element={<Modal ping={ping} setping={setping} />} />
             <Route path="Lesadoptions" element={<AdoptionDashboard />} />
             <Route path="adoptions" element={<Lesadoptions />} />
             <Route path="Mes_demandes" element={<Mes_demandes />} />
+            <Route path="Mes_expériences" element={<Mes_expériences ping={ping} setping={setping} />} />
+
           </Route>
         </Route>
       </Routes>

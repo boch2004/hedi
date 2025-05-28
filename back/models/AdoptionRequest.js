@@ -5,10 +5,15 @@ const adoptionRequestSchema = new mongoose.Schema({
   email: String,
   reason: String,
   telephone: String,
-  idanimal:String,
-  proprietaire:String,
-  iduser:String,
-  myid:String,
+  idanimal: String,
+  proprietaire: String,
+  iduser: String,
+  myid: String,
+  status: {
+    type: String,
+    enum: ["pending", "accepted", "refused"],
+    default: "pending"
+  },
   createdAt: {
     type: Date,
     default: Date.now

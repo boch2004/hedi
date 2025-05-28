@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAdoptionRequest,
   fetchAdoptionRequests,
+  updateAdoptionStatus,
 } from "../../JS/userSlice/adoptionSlice";
 import { Link } from "react-router-dom";
 import { FaCheck, FaTimes } from "react-icons/fa";
@@ -24,20 +25,6 @@ function Lesadoptions() {
   useEffect(() => {
     dispatch(fetchAdoptionRequests());
   }, [dispatch]);
-
-  const handleDelete = (id) => {
-    dispatch(deleteAdoptionRequest(id)).then((res) => {
-      if (!res.error) {
-        toast.success("L'élément a été Refusé avec succès!", {
-          autoClose: 3000,
-        });
-      } else {
-        toast.error("Erreur lors de la suppression.", {
-          autoClose: 3000,
-        });
-      }
-    });
-  };
 
   if (!user) {
     return <p style={{ color: "red" }}>Utilisateur non connecté.</p>;
@@ -71,15 +58,17 @@ function Lesadoptions() {
             const animal = animals.find((p) => p._id === r.idanimal);
             const handleRefuse = (idanimal, requestId) => {
               dispatch(
-                editanimal({
-                  id: idanimal,
-                  edited: { adoption: false },
+                updateAdoptionStatus({ id: requestId, status: "refused" })
+              )
+                .unwrap()
+                .then(() => {
+                  toast.success("Adoption refusée avec succès !", {
+                    autoClose: 3000,
+                  });
                 })
-              ).then(() => {
-                toast.success("Adoption refusée avec succès !", {
-                  autoClose: 3000,
+                .catch((error) => {
+                  toast.error("Erreur lors du refus de l'adoption : " + error);
                 });
-              });
             };
 
             const handleAdopt = (id) => {
@@ -112,7 +101,7 @@ function Lesadoptions() {
                   {animal?.adoption === undefined ||
                   animal?.adoption === false ? (
                     <span
-                      onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
+                      onClick={() => handleAdopt(r.idanimal)}
                       style={{ fontSize: 26, cursor: "pointer" }}
                     >
                       ✅
@@ -131,7 +120,7 @@ function Lesadoptions() {
                     <span
                       onClick={() => handleRefuse(r.idanimal, r._id)}
                       style={{
-                        marginTop: 13,
+                        marginTop: 23,
                         width: "27px",
                         height: "27px",
                         backgroundColor: "#ef4444",

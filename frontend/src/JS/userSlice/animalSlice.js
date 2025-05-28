@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/animals"; // ✅ تصحيح الرابط
+const API_URL = "http://localhost:5000/animals"; 
 
-// ✅ جلب كل الحيوانات
+// Get animals
 export const getanimal = createAsyncThunk("animal/get", async (_, { rejectWithValue }) => {
     try {
         let response = await axios.get(`${API_URL}/`);
@@ -13,7 +13,7 @@ export const getanimal = createAsyncThunk("animal/get", async (_, { rejectWithVa
     }
 });
 
-// ✅ إضافة حيوان جديد
+// ADD ANIMAL
 export const addanimal = createAsyncThunk("animal/add", async (formData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_URL}/add`, formData, {
@@ -28,7 +28,7 @@ export const addanimal = createAsyncThunk("animal/add", async (formData, { rejec
   });
   
 
-// ✅ حذف حيوان
+// Delete animal 
 export const deleteanimal = createAsyncThunk("animal/delete", async (id, { rejectWithValue }) => {
     try {
         let response = await axios.delete(`${API_URL}/${id}`);
@@ -38,7 +38,7 @@ export const deleteanimal = createAsyncThunk("animal/delete", async (id, { rejec
     }
 });
 
-// ✅ تعديل حيوان
+// modifier ( put) animal 
 export const editanimal = createAsyncThunk("animal/edit", async ({ id, edited }, { rejectWithValue }) => {
     try {
         let response = await axios.put(`${API_URL}/${id}`, edited, {
@@ -53,14 +53,14 @@ export const editanimal = createAsyncThunk("animal/edit", async ({ id, edited },
 });
 
 
-// ✅ الحالة الابتدائية
+// 1st time
 const initialState = {
     animalList: [],
     status: "idle",
     error: null,
 };
 
-// ✅ دالة لتحديث حالة الطلبات
+//pour voir le statut 
 const setStatus = (state, status, error = null) => {
     state.status = status;
     state.error = error;
@@ -72,7 +72,7 @@ export const animalSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // ✅ جلب الحيوانات
+            // Get animal 
             .addCase(getanimal.pending, (state) => setStatus(state, "loading"))
             .addCase(getanimal.fulfilled, (state, action) => {
                 setStatus(state, "success");
@@ -80,7 +80,7 @@ export const animalSlice = createSlice({
             })
             .addCase(getanimal.rejected, (state, action) => setStatus(state, "fail", action.payload))
 
-            // ✅ إضافة حيوان
+            // Add animal
             .addCase(addanimal.pending, (state) => setStatus(state, "loading"))
             .addCase(addanimal.fulfilled, (state, action) => {
                 setStatus(state, "success");
@@ -88,7 +88,7 @@ export const animalSlice = createSlice({
             })
             .addCase(addanimal.rejected, (state, action) => setStatus(state, "fail", action.payload))
 
-            // ✅ حذف حيوان
+            // supprimer animal 
             .addCase(deleteanimal.pending, (state) => setStatus(state, "loading"))
             .addCase(deleteanimal.fulfilled, (state, action) => {
                 setStatus(state, "success");
@@ -96,7 +96,7 @@ export const animalSlice = createSlice({
             })
             .addCase(deleteanimal.rejected, (state, action) => setStatus(state, "fail", action.payload))
 
-            // ✅ تعديل حيوان
+            // modifier animal 
             .addCase(editanimal.pending, (state) => setStatus(state, "loading"))
             .addCase(editanimal.fulfilled, (state, action) => {
                 setStatus(state, "success");
@@ -108,5 +108,5 @@ export const animalSlice = createSlice({
     },
 });
 
-// ✅ تصدير الـ Reducer
+
 export default animalSlice.reducer;

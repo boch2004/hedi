@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletepost } from "../JS/userSlice/postSlice";
 import "./Cardpost.css";
@@ -11,6 +10,7 @@ function Cardpost({ Expérience }) {
 
 
   const handleDelete = (id) => {
+    //pour que l'admin peut effacer 
     Swal.fire({
       title: "Êtes-vous sûr ?",
       text: "Cette action est irréversible !",
@@ -30,9 +30,9 @@ function Cardpost({ Expérience }) {
 
   return (
     <>
-<div className="nakcha">
-        {(user?._id === Expérience?.userid || user?.category === "admin") && (
-          // user le owner de Expérience 
+<div className="annuler">
+        {(user?.category === "admin") && (
+          // pour l'admin
           <button
             style={{
               border: "none",

@@ -26,7 +26,7 @@ function Carduser({ user,ping,setping }) {
     });
   };
 
-
+//for admin :
   return (
     <div className="user-list-container">
       <ul className="user-list">
@@ -39,7 +39,7 @@ function Carduser({ user,ping,setping }) {
           <span style={{ width: 50 }}>
             <button
               style={{ background: "red", color: "white",border:"none",borderRadius:5 }}
-              onClick={() => handleDelete(user._id)} // ✅ Corrected here
+              onClick={() => handleDelete(user._id)} 
             >
               X
             </button>

@@ -44,7 +44,6 @@ function Favorites({ ping, setping }) {
                     .map((el) => (
                         <div
                             className="favorite-item"
-                            //affiche les imag Image mtaa animal ,Nom mtaa animal ,  Bouton pour supprimer
                             key={el._id}
                             style={{
                                 transition: "all 0.5s ease-in-out",

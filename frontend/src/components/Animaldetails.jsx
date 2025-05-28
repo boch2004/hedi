@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import "./Animaldetails.css";
@@ -31,8 +30,8 @@ function Animaldetails() {
             { label: "Name", value: animal?.name },
             { label: " Type d'animal", value: animal?.Type },
             { label: "Race", value: animal?.race },
-            { label: "Gender", value: animal?.gender },
-            { label: "Location", value: animal?.location },
+            { label: "Sexe", value: animal?.gender },
+            { label: "Localisation", value: animal?.location },
             { label: "Remarque", value: animal?.remarque },
             { label: "adoption", value: animal?.adoption ? "Non disponible" : "Disponible" },
           ].map((item, index) => (
@@ -42,6 +41,7 @@ function Animaldetails() {
             </p>
           ))}
           {user?.category !== "admin" && user?._id !== animal?.idanimal ? (
+            //ne s'affiche pas pour admin ou bien le proteur d'animaux le staut 
             animal?.adoption === true ? (
               <p style={{ fontStyle: "italic", color: "red" }}>
                 Non disponible.

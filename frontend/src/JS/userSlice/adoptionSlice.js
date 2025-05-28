@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-// إرسال طلب تبنّي
+// envoie d'une demande d'adoption 
 export const submitAdoptionRequest = createAsyncThunk(
   "adoption/submitAdoptionRequest",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/adoption", formData);
+      const res = await axios.post("http://localhost:5000/api/adoption", formData); //envoie des données au back
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -16,7 +16,7 @@ export const submitAdoptionRequest = createAsyncThunk(
   }
 );
 
-// جلب جميع الطلبات
+// Get adoptions
 export const fetchAdoptionRequests = createAsyncThunk(
   "adoption/fetchAdoptionRequests",
   async (_, { rejectWithValue }) => {
@@ -31,7 +31,7 @@ export const fetchAdoptionRequests = createAsyncThunk(
   }
 );
 
-// Thunk pour supprimer une demande
+// supprimer une demande
 export const deleteAdoptionRequest = createAsyncThunk(
   'adoption/deleteAdoptionRequest',
   async (id, { rejectWithValue }) => {
@@ -46,7 +46,21 @@ export const deleteAdoptionRequest = createAsyncThunk(
     }
   }
 );
+export const updateAdoptionStatus = createAsyncThunk(
+  "adoption/updateAdoptionStatus",
+  async ({ id, status }, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(`http://localhost:5000/api/adoption/status/${id}`, { status });
+      return res.data.updatedRequest; // حسب الرد اللي في الباك
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Erreur lors de la mise à jour"
+      );
+    }
+  }
+);
 
+//1st time 
 const adoptionSlice = createSlice({
   name: "adoption",
   initialState: {
@@ -62,9 +76,10 @@ const adoptionSlice = createSlice({
       state.error = null;
     },
   },
+  //les situations 
   extraReducers: (builder) => {
     builder
-      .addCase(submitAdoptionRequest.pending, (state) => {
+      .addCase(submitAdoptionRequest.pending, (state) => { //l'operation est en cours
         state.loading = true;
         state.success = false;
         state.error = null;
@@ -100,7 +115,23 @@ const adoptionSlice = createSlice({
       .addCase(deleteAdoptionRequest.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+        .addCase(updateAdoptionStatus.pending, (state) => {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(updateAdoptionStatus.fulfilled, (state, action) => {
+    state.loading = false;
+    // نبدل العنصر اللي في requests حسب id
+    const index = state.requests.findIndex(r => r._id === action.payload._id);
+    if (index !== -1) {
+      state.requests[index] = action.payload;
+    }
+  })
+  .addCase(updateAdoptionStatus.rejected, (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  });
   },
 });
 

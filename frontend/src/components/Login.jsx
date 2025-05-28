@@ -19,7 +19,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!login.email || !login.password) {
-      setErrorMessage("Please fill in all fields");
+      setErrorMessage("Veuillez remplir tous les champs");
       return;
     }
   
@@ -34,7 +34,7 @@ function Login() {
         navigate("/");
       }
     } else {
-      setErrorMessage(result.payload?.msg || "Login failed! Please try again.");
+      setErrorMessage(result.payload?.msg || "Échec de la connexion!Veuillez réessayer.");
     }
   };
   

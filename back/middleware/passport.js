@@ -3,10 +3,12 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt; 
 const passport = require("passport");
 //appel pour la bibliothque de l'authentification 
+
 var opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
+
   secretOrKey: process.env.SecretOrKey,
-  //Pour lire token (=ID & crypté  ) de la part de header , secrectkey pour faire le decode de token  
+  //C’est le mot clé secret (crypté) pour la vérification w décryptage de token.
 };
 passport.use(
   new JwtStrategy(opts, async (jwt_payload, done) => {

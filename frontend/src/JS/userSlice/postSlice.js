@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/post"; // تحديد الـ API URL
+const API_URL = "http://localhost:5000/post"; 
 
-// جلب كل المنشورات
+// Get post 
 export const getpost = createAsyncThunk("post/get", async (_, { rejectWithValue }) => {
     try {
         let response = await axios.get(`${API_URL}/`);
-        return response.data.posts; // تأكد أن الـ API يعيد كائن يحتوي على `posts`
+        return response.data.posts; 
     } catch (error) {
         return rejectWithValue(error.response?.data || "Error fetching posts");
     }
 });
 
-// إضافة منشور جديد
+// ADD post
 export const addpost = createAsyncThunk("post/add", async (newpost, { rejectWithValue }) => {
     try {
         let response = await axios.post(`${API_URL}/add`, newpost);
@@ -24,17 +24,17 @@ export const addpost = createAsyncThunk("post/add", async (newpost, { rejectWith
     }
 });
 
-// حذف منشور
+// Delete animal
 export const deletepost = createAsyncThunk("post/delete", async (id, { rejectWithValue }) => {
     try {
         await axios.delete(`${API_URL}/${id}`);
-        return id; // نرجع ID حتى نحذفه من الحالة
+        return id; 
     } catch (error) {
         return rejectWithValue(error.response?.data || "Error deleting post");
     }
 });
 
-// تعديل منشور
+// modifier le post ( put )
 export const editpost = createAsyncThunk("post/edit", async ({ id, edited }, { rejectWithValue }) => {
     try {
         let response = await axios.put(`${API_URL}/${id}`, edited);
@@ -45,21 +45,21 @@ export const editpost = createAsyncThunk("post/edit", async ({ id, edited }, { r
     }
 });
 
-// الحالة الابتدائية
+// 1st time 
 const initialState = {
     postlist: [],
     status: "idle",
     error: null,
 };
 
-// إنشاء Slice لـ posts
+// creation des slices 
 export const postSlice = createSlice({
     name: "post",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // جلب المنشورات
+            // Get post 
             .addCase(getpost.pending, (state) => {
                 state.status = "loading";
             })
@@ -72,7 +72,7 @@ export const postSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // إضافة منشور
+            // Add post  
             .addCase(addpost.pending, (state) => {
                 state.status = "loading";
             })
@@ -85,7 +85,7 @@ export const postSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // حذف منشور
+            // delete a post  
             .addCase(deletepost.pending, (state) => {
                 state.status = "loading";
             })
@@ -98,7 +98,7 @@ export const postSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // تعديل منشور
+            // modifier post 
             .addCase(editpost.pending, (state) => {
                 state.status = "loading";
             })
@@ -115,5 +115,5 @@ export const postSlice = createSlice({
     },
 });
 
-// تصدير الـ Reducer
+
 export default postSlice.reducer;

@@ -11,7 +11,7 @@ export default function NumScrollDemo() {
   const user = useSelector((state) => state.user.userlist);
   const dispatch = useDispatch();
 
-  const [localAnimals, setLocalAnimals] = useState([]); // local animals
+  const [localAnimals, setLocalAnimals] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
   const reduxAnimals = useSelector((state) => state.animal?.animalList || []);
@@ -38,7 +38,7 @@ export default function NumScrollDemo() {
     fetchAnimals();
   }, []);
 
-  // Fetch animals into Redux store
+  // envoie animals into Redux store
   useEffect(() => {
     dispatch(getanimal());
   }, [dispatch]);
@@ -76,17 +76,17 @@ export default function NumScrollDemo() {
     user.some((u) => u._id === animal.idanimal)
   );
 
-  const visibleAnimals = showAll ? filteredAnimals : filteredAnimals.slice(0, 9);
+  const visibleAnimals = showAll ? filteredAnimals : filteredAnimals.slice(0, 20);
 
   return (
     <>
       {/* Carousel Section */}
       <div className="card" style={{ padding: "0 200px", background: "#efeff1" }}>
         <Carousel
-          value={visibleAnimals}  // Here use visibleAnimals instead of localAnimals
+          value={visibleAnimals}  
           itemTemplate={animalTemplate}
           numScroll={1}
-          numVisible={4}
+          numVisible={3}
           circular
           autoplayInterval={5000}
           responsiveOptions={responsiveOptions}

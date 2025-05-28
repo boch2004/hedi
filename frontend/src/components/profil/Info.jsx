@@ -60,7 +60,7 @@ function ProfileInfo() {
           <p><strong>Téléphone:</strong> {user?.phone}</p>
           <p><strong>Ville:</strong> {user?.location}</p>
           <p><strong>Code postal:</strong> {user?.postalCode}</p>
-          <Link to={"/profil"}><button style={{height:40}} className="info-button">Paramètres</button></Link>
+          <Link to={"/profil"}><button style={{height:40}} className="info-button">Modifier</button></Link>
         </div>
       </div>
 

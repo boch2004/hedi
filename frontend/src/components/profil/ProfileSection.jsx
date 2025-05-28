@@ -93,6 +93,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
           />
         </div>
 
+        
         <div className="form-container">
           <div className="form-row">
             <div className="form-group">
@@ -131,15 +132,21 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
               />
             </div>
             <div className="form-group">
-              <label>Numéro de télephone</label>
+              <label>Numéro de téléphone</label>
               <input
                 type="text"
                 className="form-input"
                 name="phone"
                 value={edited.phone || ""}
-                onChange={(e) => setEdited({ ...edited, phone: e.target.value })}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,8}$/.test(value)) {
+                    setEdited({ ...edited, phone: value });
+                  }
+                }}
               />
             </div>
+
           </div>
 
           <div className="form-row">

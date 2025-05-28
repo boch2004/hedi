@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaBell, FaHeart, FaStar, FaCog, FaSignOutAlt, FaPaw, FaUsers } from "react-icons/fa";
+import { FaBell, FaHeart, FaStar, FaCog, FaSignOutAlt, FaPaw, FaUsers, FaBookOpen, FaEnvelopeOpenText } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -49,7 +49,7 @@ const Profil = () => {
         isActive ? "nav-link active" : "nav-link"
       }
     >
-      <FaBell className="icon" /> <h6>User info</h6>
+      <FaBell className="icon" /> <h6>Profil</h6>
     </NavLink>
   </li>
           )}
@@ -87,7 +87,7 @@ const Profil = () => {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                <FaPaw className="icon" /> <h6>Lesadoptions</h6>
+                <FaPaw className="icon" /> <h6>Les adoptions</h6>
               </NavLink>
             </li>
           )}
@@ -111,10 +111,22 @@ const Profil = () => {
         isActive ? "nav-link active" : "nav-link"
       }
     >
-      <FaStar className="icon" /> <h6>Mes_animaux</h6>
+      <FaStar className="icon" /> <h6>Mes animaux</h6>
     </NavLink>
   </li>
           )}
+          {user?.category === "user" && (
+            <li className="nav-item">
+              <NavLink
+                to="Mes_expériences"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                <FaBookOpen className="icon" /> <h6>Mes expérience</h6>
+              </NavLink>
+            </li>
+    )}
           {user?.category === "user" && (
     <li className="nav-item">
       <NavLink
@@ -135,7 +147,7 @@ const Profil = () => {
                   isActive ? "nav-link active" : "nav-link"
                 }
               >
-                <FaHeart className="icon" /> <h6>Mes_demandes</h6>
+                <FaEnvelopeOpenText className="icon" /> <h6>Mes demandes</h6>
               </NavLink>
             </li>
           )}

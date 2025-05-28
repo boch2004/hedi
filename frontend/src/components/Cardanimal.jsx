@@ -3,7 +3,6 @@ import { deleteanimal, editanimal } from "../JS/userSlice/animalSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addfavoris, deletefavoris } from "../JS/userSlice/favorisslice";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import "./Cardanimal.css";
 
@@ -13,10 +12,10 @@ function Cardanimal({ animal, ping, setping }) {
   const favoris = useSelector((state) => state.favoris.favorislist);
   const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
-  //Pour s'avoir si l'animal est déja dans les favoris 
+ 
   
   const handleDelete = (id) => {
-    //pour supprimer un animal 
+    // Pour supprimer un animal pour un admin 
     Swal.fire({
       title: "Êtes-vous sûr ?",
       text: "Cette action est irréversible !",
@@ -24,13 +23,15 @@ function Cardanimal({ animal, ping, setping }) {
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Oui, supprimer !"
+      confirmButtonText: "Oui, supprimer!",
+      cancelButtonText: "Annuler",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteanimal(id));
+        dispatch(deleteanimal(id)); // Envoie l'action pour supprimer l'animal
       }
     });
   };
+  
 
   if (!animal) return <p>Aucun animal trouvé</p>;
 

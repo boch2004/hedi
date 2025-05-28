@@ -5,7 +5,7 @@ import axios from 'axios';
 export const getfavoris = createAsyncThunk("favoris/get", async () => {
     try {
         let result = await axios.get("http://localhost:5000/favoris/");
-        return result.data.favoris; // تم التعديل هنا
+        return result.data.favoris; 
     } catch (error) {
         console.log(error);
         throw error;
@@ -17,7 +17,7 @@ export const addfavoris = createAsyncThunk("favoris/add", async (newfavoris) => 
     try {
         let result = await axios.post("http://localhost:5000/favoris/add", newfavoris);
         console.log("Response:", result);
-        return result.data.favoris; // تم التعديل هنا
+        return result.data.favoris; 
     } catch (error) {
         console.log(error);
         throw error;
@@ -29,7 +29,7 @@ export const deletefavoris = createAsyncThunk("favoris/delete", async (id) => {
     try {
         let result = await axios.delete(`http://localhost:5000/favoris/${id}`);
         console.log("Response:", result);
-        return id; // نرجع الـ id للحذف
+        return id; 
     } catch (error) {
         console.log(error);
         throw error;
@@ -41,7 +41,7 @@ export const editfavoris = createAsyncThunk("favoris/edit", async ({ id, edited 
     try {
         let result = await axios.put(`http://localhost:5000/favoris/${id}`, edited);
         console.log("Response:", result);
-        return result.data.updatedFavoris; // تم التعديل هنا
+        return result.data.updatedFavoris; 
     } catch (error) {
         console.log(error);
         throw error;
@@ -61,11 +61,11 @@ export const favorisSlice = createSlice({
         builder
             .addCase(addfavoris.fulfilled, (state, action) => {
                 state.status = "success";
-                state.favorislist.push(action.payload); // تم التعديل هنا
+                state.favorislist.push(action.payload);  
             })
             .addCase(deletefavoris.fulfilled, (state, action) => {
                 state.status = "success";
-                const id = action.payload; // تم التعديل هنا
+                const id = action.payload; 
                 state.favorislist = state.favorislist.filter(f => f._id !== id);
             })
             .addCase(getfavoris.fulfilled, (state, action) => {
@@ -74,7 +74,7 @@ export const favorisSlice = createSlice({
             })
             .addCase(editfavoris.fulfilled, (state, action) => {
                 state.status = "success";
-                const updated = action.payload; // تم التعديل هنا
+                const updated = action.payload; 
                 const index = state.favorislist.findIndex(f => f._id === updated._id);
                 if (index !== -1) {
                     state.favorislist[index] = updated;

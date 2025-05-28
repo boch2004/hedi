@@ -1,5 +1,6 @@
+/* button engresiterer d'ajout */
 
-.wrapper a{
+.wrapper a {
   display: block;
   width: 200px;
   height: 40px;
@@ -16,12 +17,12 @@
   transition: all .35s;
 }
 
-.wrapper a span{
+.wrapper a span {
   position: relative;
   z-index: 2;
 }
 
-.wrapper a:after{
+.wrapper a:after {
   position: absolute;
   content: "";
   top: 0;
@@ -32,12 +33,12 @@
   transition: all .35s;
 }
 
-.wrapper a:hover{
+.wrapper a:hover {
   color: #fff;
-      cursor: pointer;
-  
+  cursor: pointer;
+
 }
 
-.wrapper a:hover:after{
+.wrapper a:hover:after {
   width: 100%;
 }

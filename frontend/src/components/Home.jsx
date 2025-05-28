@@ -17,10 +17,10 @@ function Home() {
           className="header-image"
         />
         <div className="image-text">
-          <h2 style={{color:"#ff6600"}}>Bienvenue sur Adopt Me</h2>
+          <h2 style={{color:"#ff6600"}}>Bienvenue sur PetCare </h2>
           <p>
             Des milliers d’animaux attendent une famille aimante. Faites
-            ladifférence dès aujourd’hui !
+            la différence dès aujourd’hui !
           </p>
             {!user && (
           <div className="buttons">

@@ -6,7 +6,7 @@ function Les_animaux({ ping, setping }) {
   const Animals = useSelector((state) => state.animal?.animalList || []);
   const users = useSelector((state) => state.user?.userlist || []);
 
-  // نعملو فلترة للحيوانات حسب وجود المستخدم
+  // filtrage des animaux selon le user
   const filteredAnimals = Animals.filter((animal) =>
     users.some((user) => user._id === animal.idanimal)
   );

@@ -3,11 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 const { v2: cloudinary } = require("cloudinary");
 
-// إعداد Multer للقراءة من الذاكرة (ما نحفظوش محليًا)
+// Pour stocker dans la mémorire 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// إعداد Cloudinary
+// Pour Cloudinary
 require("dotenv").config();
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-// Route لرفع صورة
+// Route pour ajouter une photo 
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const base64Image = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;

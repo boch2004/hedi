@@ -36,7 +36,7 @@ function Ajouter() {
   ];
   const vaccinOptions = [
     { label: "Oui", value: "Oui" },
-    { label: "No", value: "No" },
+    { label: "Non", value: "Non" },
   ];
 
   const TypeOptions = [
@@ -59,39 +59,44 @@ function Ajouter() {
   const calculateAge = (birthDate) => {
     const today = new Date();
     const birth = new Date(birthDate);
+
     let years = today.getFullYear() - birth.getFullYear();
     let months = today.getMonth() - birth.getMonth();
+    let days = today.getDate() - birth.getDate();
+
+    // Ajuster les mois si le jour n’est pas encore atteint
+    if (days < 0) {
+      months -= 1;
+    }
 
     if (months < 0) {
       years -= 1;
       months += 12;
     }
 
-    let ageText = "";
-    if (years === 0) {
-      if (months < 1) {
-        ageText = "moins d'un mois";
-      } else if (months === 1) {
-        ageText = "1 mois";
-      } else {
-        ageText = `${months} mois`;
-      }
-    } else {
-      if (months === 0) {
-        ageText = `${years} an`;
-      } else if (months === 1) {
-        ageText = `${years} an et 1 mois`;
-      } else {
-        ageText = `${years} an(s) et ${months} mois`;
-      }
+    // Cas particulier : moins d’un mois
+    const totalDays = (today - birth) / (1000 * 60 * 60 * 24);
+    if (totalDays < 30) {
+      return "moins d'un mois";
     }
 
-    return ageText;
+    // Formatage de l'âge
+    if (years === 0) {
+      return months === 1 ? "1 mois" : `${months} mois`;
+    } else {
+      if (months === 0) {
+        return years === 1 ? "1 an" : `${years} ans`;
+      } else {
+        const yearText = years === 1 ? "1 an" : `${years} ans`;
+        const monthText = months === 1 ? "1 mois" : `${months} mois`;
+        return `${yearText} et ${monthText}`;
+      }
+    }
   };
-
+  
   const isFormValid = () => {
     return (
-      newanimal.img &&
+      newanimal.img && //chaque champ a un valeur
       newanimal.name &&
       newanimal.description &&
       newanimal.race &&
@@ -164,7 +169,6 @@ function Ajouter() {
             </div>
           </div>
 
-          {/* Description */}
           <h5>
             Description<span>*</span>
           </h5>
@@ -222,7 +226,6 @@ function Ajouter() {
             </div>
           </div>
 
-          {/* Sexe et Activité */}
           <div style={{ display: "flex", gap: "10px" }}>
             <div style={{ flex: 1 }}>
               <h5>
@@ -268,7 +271,7 @@ function Ajouter() {
             </div>
           </div>
 
-          {/* Couleur, Lieu, Remarque */}
+    
           <h5>
             Couleur<span>*</span>
           </h5>
@@ -352,7 +355,7 @@ function Ajouter() {
                 formData.append("Couleur", newanimal.Couleur);
                 formData.append("Activite", newanimal.Activite);
                 formData.append("age", newanimal.age);
-                formData.append("birthDate", newanimal.birthDate); // Ajout de la date de naissance
+                formData.append("birthDate", newanimal.birthDate); 
                 formData.append("idanimal", newanimal.idanimal);
                 formData.append("proprietaire", newanimal.proprietaire);
 
@@ -367,7 +370,8 @@ function Ajouter() {
                 });
               }}
             >
-              <span>Enregistrer</span>
+              <span>Enregistrer</span> 
+              {/* button. css*/}
             </a>
           </div>
         </div>

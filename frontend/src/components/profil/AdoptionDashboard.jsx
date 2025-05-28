@@ -20,33 +20,6 @@ function AdoptionDashboard() {
     dispatch(fetchAdoptionRequests());
   }, [dispatch]);
 
-  const handleDelete = (id) => {
-    dispatch(deleteAdoptionRequest(id)).then((res) => {
-      //why ?
-      if (!res.error) {
-        toast.success("L'élément a été Refusé avec succès!", {
-          autoClose: 3000,
-        });
-      } else {
-        toast.error("Erreur lors de la suppression.", {
-          autoClose: 3000,
-        });
-      }
-    });
-  };
-
-  if (!user) {
-    return <p style={{ color: "red" }}>Utilisateur non connecté.</p>;
-  }
-
-  const handleAdopt = (animalId) => {
-    dispatch(
-      editanimal({
-        id: animalId,
-        edited: { adoption: true },
-      })
-    );
-  };
   return (
     <div>
       <div style={{ padding: "2rem" }}>

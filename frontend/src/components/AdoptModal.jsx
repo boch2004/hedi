@@ -34,11 +34,10 @@ function AdoptModal({ animalId, user_id,proprietaire }) {
     }
 
     const formData = {
-      //automatique
       name: user?.name,
       telephone: user?.phone,
       email: user?.email,
-      reason: reason, // On récupère directement depuis le state
+      reason: reason, 
       idanimal: animalId,
       iduser: user_id,
       proprietaire: proprietaire,

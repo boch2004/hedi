@@ -11,6 +11,7 @@ function Mes_animaux({ ping, setping }) {
   const Animals = useSelector((state) => state.animal?.animalList || []);
   const dispatch = useDispatch();
   const handleDelete = (id) => {
+    //supprimer for user
     Swal.fire({
       title: "Êtes-vous sûr ?",
       text: "Vous ne pourrez pas revenir en arrière!",

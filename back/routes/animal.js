@@ -4,7 +4,7 @@ const animalRouter = express.Router();
 const multer = require("multer");
 const path = require("path");
 
-// إStockage des photos des animaux lors de l'ajout 
+// Stockage des photos des animaux lors de l'ajout 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/"); 

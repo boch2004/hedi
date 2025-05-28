@@ -24,7 +24,7 @@ function Register({ping,setping}) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Vérifie que tous les champs sont remplis
+   
     const tousChampsRemplis = Object.values(register).every(
       (val) => val.trim() !== ""
     );
@@ -33,41 +33,34 @@ function Register({ping,setping}) {
       return;
     }
 
-    // Vérifie que le numéro de téléphone contient exactement 8 chiffres
     if (!/^\d{8}$/.test(register.phone)) {
       toast.error("Le numéro de téléphone doit contenir exactement 8 chiffres.");
       return;
     }
 
-    // Vérifie que le mot de passe a une longueur entre 6 et 20 caractères
     if (register.password.length < 6 || register.password.length > 20) {
       toast.error("Le mot de passe doit contenir entre 6 et 20 caractères.");
       return;
     }
 
-    // Dispatch userRegister et gère le toast en cas d'erreur
     dispatch(userRegister(register))
       .unwrap()
       .then((response) => {
-        // Enregistrer le token dans localStorage
+       
         localStorage.setItem("token", response.token);
 
-        // Mise à jour de l'état de l'utilisateur dans le store Redux
         dispatch({
-          type: "user/login/fulfilled",  // Si le nom du slice change, assure-toi d'adapter ici
+          type: "user/login/fulfilled",  
           payload: {
             user: response.user,
             token: response.token,
           },
         });
 
-        // Récupérer les données utilisateur après l'inscription
         dispatch(fetchUserData());
 
-        // Rediriger l'utilisateur vers son profil après 2 secondes
         setTimeout(() => {
           navigate("/profil/info");
-          // Rafraîchir la page après 2 secondes
           window.location.reload();
         }, 10); // 2000 ms = 2 secondes
       })
@@ -164,7 +157,7 @@ function Register({ping,setping}) {
         </p>
       </div>
 
-      {/* Le conteneur pour les notifications toast */}
+     
       <ToastContainer />
     </div>
   );

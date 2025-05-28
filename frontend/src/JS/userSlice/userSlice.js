@@ -28,7 +28,7 @@ export const userlogin = createAsyncThunk("user/login", async (user, { rejectWit
     let response = await axios.post("http://localhost:5000/user/login", user);
     return response.data; // إعادة بيانات المستخدم عند النجاح
   } catch (error) {
-    return rejectWithValue(error.response?.data || { msg: "Login failed! Please try again." });
+    return rejectWithValue(error.response?.data || { msg: "Échec de la connexion ! Veuillez réessayer" });
   }
 });
 
@@ -76,6 +76,7 @@ export const getusers = createAsyncThunk("user/get", async () => {
       console.log(error)
   }
 })
+//pour l'image
 export const uploadAndEditUserImage = createAsyncThunk(
   "user/uploadImage",
   async ({ imageFile }) => {
@@ -88,6 +89,7 @@ export const uploadAndEditUserImage = createAsyncThunk(
     return { img: imageUrl };
   }
 );
+//pour user
 export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (id, { rejectWithValue }) => {
@@ -139,7 +141,7 @@ export const userSlice = createSlice({
 
       .addCase(userlogin.rejected, (state, action) => {
         state.status = "fail";
-        state.error = action.payload?.msg || "Login failed! Please try again.";
+        state.error = action.payload?.msg || "Échec de la connexion ! Veuillez réessayer";
       })    
       .addCase(userCurrent.pending, (state) => {
         state.status = "pending";
@@ -192,7 +194,6 @@ export const userSlice = createSlice({
   },
 })  
 
-// Action creators are generated for each case reducer function
 export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;
