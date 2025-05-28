@@ -16,11 +16,12 @@ function Lesadoptions() {
   const user = useSelector((state) => state.user.user);
   const animals = useSelector((state) => state.animal?.animalList || []);
 
-  const userRequests = requests.filter(
-    (r) =>
-      r.iduser === user?._id &&
-      animals.find((a) => a._id === r.idanimal)?.adoption !== false
-  );
+const userRequests = requests.filter(
+  (r) =>
+    r.iduser === user?._id &&
+    r.status !== "refused"
+);
+
 
   useEffect(() => {
     dispatch(fetchAdoptionRequests());
