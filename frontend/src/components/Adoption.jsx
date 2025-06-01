@@ -51,7 +51,7 @@ export default function NumScrollDemo() {
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
       <div className="mb-3" style={{ display: "flex", justifyContent: "center" }}>
         <img
-          src={`http://localhost:5000/uploads/${animal.img}`}
+          src={`back-adoption-production.up.railway.app/uploads/${animal.img}`}
           alt={animal.name}
           className="shadow-2"
           style={{ width: 220, height: 200 }}

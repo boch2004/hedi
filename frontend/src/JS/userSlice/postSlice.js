@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/post"; 
+const API_URL = "https://back-adoption-production.up.railway.app/post"; 
 
 // Get post 
 export const getpost = createAsyncThunk("post/get", async (_, { rejectWithValue }) => {

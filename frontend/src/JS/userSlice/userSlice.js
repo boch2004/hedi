@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BASE_URL = "https://back-adoption-production.up.railway.app";
 
 // Dans userSlice.js
 export const fetchUserData = () => async (dispatch) => {
   try {
-    const response = await api.get("/user");  // Remplace par ton API
+    const response = await axios.get(`${BASE_URL}/user`);
     dispatch({ type: "user/fetchUserData", payload: response.data });
   } catch (error) {
     console.error("Erreur lors de la récupération des données utilisateur", error);
@@ -16,25 +17,31 @@ export const userRegister = createAsyncThunk(
   "user/register",
   async (user, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/user/register", user);
+      const res = await axios.post(`${BASE_URL}/user/register`, user);
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response.data.msg); 
+      return rejectWithValue(err.response.data.msg);
     }
   }
 );
-export const userlogin = createAsyncThunk("user/login", async (user, { rejectWithValue }) => {
-  try {
-    let response = await axios.post("http://localhost:5000/user/login", user);
-    return response.data; // إعادة بيانات المستخدم عند النجاح
-  } catch (error) {
-    return rejectWithValue(error.response?.data || { msg: "Échec de la connexion ! Veuillez réessayer" });
+
+export const userlogin = createAsyncThunk(
+  "user/login",
+  async (user, { rejectWithValue }) => {
+    try {
+      let response = await axios.post(`${BASE_URL}/user/login`, user);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || { msg: "Échec de la connexion ! Veuillez réessayer" }
+      );
+    }
   }
-});
+);
 
 export const userCurrent = createAsyncThunk("user/current", async () => {
   try {
-    let response = await axios.get("http://localhost:5000/user/current", {
+    let response = await axios.get(`${BASE_URL}/user/current`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -45,66 +52,67 @@ export const userCurrent = createAsyncThunk("user/current", async () => {
   }
 });
 
-
-
-export const deleteuser = createAsyncThunk("user/delete", async(id)=>{
+export const deleteuser = createAsyncThunk("user/delete", async (id) => {
   try {
-    let result = await axios.delete(`http://localhost:5000/user/${id}`)
-      console.log("Response:", result);
-      return result
+    let result = await axios.delete(`${BASE_URL}/user/${id}`);
+    console.log("Response:", result);
+    return result;
   } catch (error) {
-      console.log(error)
+    console.log(error);
   }
-})
+});
+
 export const edituser = createAsyncThunk("user/edit", async ({ id, edited }) => {
   try {
-    const result = await axios.put(`http://localhost:5000/user/users/${id}`, edited);
-    return result.data; 
+    const result = await axios.put(`${BASE_URL}/user/users/${id}`, edited);
+    return result.data;
   } catch (error) {
     console.log(error);
     throw error;
   }
 });
 
-
 export const getusers = createAsyncThunk("user/get", async () => {
   try {
-    let result = await axios.get("http://localhost:5000/user/")
-      console.log("Response:", result);
-      return result
+    let result = await axios.get(`${BASE_URL}/user/`);
+    console.log("Response:", result);
+    return result;
   } catch (error) {
-      console.log(error)
+    console.log(error);
   }
-})
-//pour l'image
+});
+
+// pour l'image
 export const uploadAndEditUserImage = createAsyncThunk(
   "user/uploadImage",
   async ({ imageFile }) => {
     const formData = new FormData();
     formData.append("image", imageFile);
 
-    const uploadRes = await axios.post("http://localhost:5000/api/upload", formData);
+    const uploadRes = await axios.post(`${BASE_URL}/api/upload`, formData);
     const imageUrl = uploadRes.data.url;
-    console.log("Upload response:", uploadRes.data); 
+    console.log("Upload response:", uploadRes.data);
     return { img: imageUrl };
   }
 );
-//pour user
+
+// pour user
 export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:5000/user/api/users/${id}`);
+      const res = await axios.get(`${BASE_URL}/user/api/users/${id}`);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
   }
 );
+
 const initialState = {
   user: null,
   status: null,
-  userlist:[]
+  userlist: [],
 };
 
 export const userSlice = createSlice({
@@ -123,26 +131,25 @@ export const userSlice = createSlice({
       })
       .addCase(userRegister.fulfilled, (state, action) => {
         state.status = "success";
-        state.user = action.payload.user;  
-        localStorage.setItem("token", action.payload.token); 
+        state.user = action.payload.user;
+        localStorage.setItem("token", action.payload.token);
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.status = "fail";
-        state.error = action.payload; // <-- on stocke le message d’erreur ici
+        state.error = action.payload;
       })
       .addCase(userlogin.pending, (state) => {
         state.status = "pending";
       })
       .addCase(userlogin.fulfilled, (state, action) => {
         state.status = "success";
-        state.user = action.payload.user;  
-        localStorage.setItem("token", action.payload.token);  
+        state.user = action.payload.user;
+        localStorage.setItem("token", action.payload.token);
       })
-
       .addCase(userlogin.rejected, (state, action) => {
         state.status = "fail";
         state.error = action.payload?.msg || "Échec de la connexion ! Veuillez réessayer";
-      })    
+      })
       .addCase(userCurrent.pending, (state) => {
         state.status = "pending";
       })
@@ -189,10 +196,9 @@ export const userSlice = createSlice({
       })
       .addCase(uploadAndEditUserImage.rejected, (state) => {
         state.status = "fail";
-      })
-      ;
+      });
   },
-})  
+});
 
 export const { logout } = userSlice.actions;
 

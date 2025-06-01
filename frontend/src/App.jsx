@@ -23,7 +23,7 @@ import { getpost } from "./JS/userSlice/postSlice";
 import Mes_animaux from "./components/profil/Mes_animaux";
 import Les_animaux from "./components/profil/Les_animaux";
 import Animaldetails from "./components/Animaldetails";
-import Favorites from "./components/profil/favorites";
+import Favorites from "./components/profil/Favorites";
 import { getfavoris } from "./JS/userSlice/favorisslice";
 import AdoptionDashboard from "./components/profil/AdoptionDashboard";
 import Lesadoptions from "./components/profil/Lesadoptions";

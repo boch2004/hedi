@@ -1,7 +1,7 @@
 export const AnimalService = {
   async getAnimalsData() {
       try {
-          const response = await fetch('http://localhost:5000/animals/'); 
+          const response = await fetch('back-adoption-production.up.railway.app/animals/'); 
           if (!response.ok) {
               throw new Error('Network response was not ok');
           }

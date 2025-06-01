@@ -64,7 +64,7 @@ function Favorites({ ping, setping }) {
                             >
                                 <img
                                 style={{ width: "200px", height: "200px" }}
-                                    src={`http://localhost:5000/uploads/${el.imganimal}`}
+                                    src={`back-adoption-production.up.railway.app/uploads/${el.imganimal}`}
                                     className="favorite-image"
                                     alt={el?.name}
                                 />

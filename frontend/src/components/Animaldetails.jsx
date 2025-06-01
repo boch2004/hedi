@@ -19,7 +19,7 @@ function Animaldetails() {
       <div className="animal-cardd">
         <img
           className="animal-imgg"
-          src={`http://localhost:5000/uploads/${animal?.img}`}
+          src={`back-adoption-production.up.railway.app/uploads/${animal?.img}`}
           alt={animal?.name}
         />
         <div className="animal-detailss">

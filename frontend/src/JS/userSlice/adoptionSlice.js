@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+const API_BASE_URL = "https://back-adoption-production.up.railway.app";
 
 // envoie d'une demande d'adoption 
 export const submitAdoptionRequest = createAsyncThunk(
   "adoption/submitAdoptionRequest",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/adoption", formData); //envoie des données au back
+      const res = await axios.post(`${API_BASE_URL}/api/adoption`, formData);
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -21,7 +22,7 @@ export const fetchAdoptionRequests = createAsyncThunk(
   "adoption/fetchAdoptionRequests",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/adoption");
+      const res = await axios.get(`${API_BASE_URL}/api/adoption`);
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -36,7 +37,7 @@ export const deleteAdoptionRequest = createAsyncThunk(
   'adoption/deleteAdoptionRequest',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:5000/api/adoption/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/adoption/${id}`);
       return id;
     } catch (error) {
       console.error("Error delete:", error);
@@ -46,12 +47,13 @@ export const deleteAdoptionRequest = createAsyncThunk(
     }
   }
 );
+
 export const updateAdoptionStatus = createAsyncThunk(
   "adoption/updateAdoptionStatus",
   async ({ id, status }, { rejectWithValue }) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/adoption/status/${id}`, { status });
-      return res.data.updatedRequest; // حسب الرد اللي في الباك
+      const res = await axios.put(`${API_BASE_URL}/api/adoption/status/${id}`, { status });
+      return res.data.updatedRequest;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || error.message || "Erreur lors de la mise à jour"
@@ -59,6 +61,7 @@ export const updateAdoptionStatus = createAsyncThunk(
     }
   }
 );
+
 
 //1st time 
 const adoptionSlice = createSlice({
